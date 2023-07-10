@@ -1,5 +1,5 @@
 ---
-export const prerender = false;
+export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 import { Image } from "@astrojs/image/components";
 import aboutBg from "../../public/about-bg-svg.svg";
@@ -117,7 +117,7 @@ import categorySvg from "../../public/about-page-blog-category.svg";
   }
 </style>
 
-<script defer >
+<script defer>
   const searchInputBox = document.querySelector("#search-input");
   const searchIconBox = document.querySelector("#search-icon");
 
