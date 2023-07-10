@@ -27,9 +27,6 @@ const { title, description, image, tags, createdAt } = Astro.props;
     <link rel="canonical" href={url} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <GoogleFontsOptimizer
-      url="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
-    />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Parvez" />
     <meta
@@ -95,6 +92,15 @@ const { title, description, image, tags, createdAt } = Astro.props;
         : "Welcome to 10m Blogs, a place where I share my passion for a variety of topics, including food, cooking, reviews, DIY projects, and more. Through this blog, I aim to provide you with valuable insights, inspiration, and practical tips to enhance your everyday life."}
     />
     <style>
+      @font-face {
+        font-family: "Gothic A1";
+        src: url("../fonts/GothicA1-Regular.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("../fonts/Inter-Regular.ttf") format("truetype");
+      }
       :root {
         --primary-color: #fff;
         --secondary-color: #11cbff;

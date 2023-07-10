@@ -18,6 +18,7 @@ try {
       UID: id,
     },
   });
+
   categories = await prisma.categories.findMany();
 } catch (e) {
   console.log(e);
@@ -191,7 +192,7 @@ try {
   .category,
   .categories-heading {
     color: #eeeeee;
-    font-family: Gothic A1 !important;
+    font-family: "Gothic A1" !important;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -252,6 +253,8 @@ try {
       url: location.href,
     };
     // if navigator.share do support then share with navigator.share else copy the input text url and give a msg 'link copied!'. afater 2s remove the msg and the selection of url container
+    console.log(navigator.share);
+
     if (typeof navigator !== "undefined" && navigator.share)
       await navigator.share(shareData);
     else {

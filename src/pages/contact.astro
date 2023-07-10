@@ -34,7 +34,9 @@ import Layout from "../layouts/Layout.astro";
             Connect with Us: Your Voice Matters!
           </h1>
 
-          <p class="heading-paragraph mx-5 my-5 md:text-xl lg:w-[550px]">
+          <p
+            class="heading-paragraph mx-5 my-5 md:text-xl lg:w-[550px] font-light"
+          >
             We're here to help! Reach out with any questions or feedback. We
             value your input and will respond promptly.
           </p>
@@ -99,6 +101,7 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <input
                 type="email"
+                id="email"
                 name="userEmail"
                 class="bg-transparent border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                 placeholder="john@gmail.com"
@@ -134,6 +137,7 @@ import Layout from "../layouts/Layout.astro";
 
               <input
                 type="text"
+                id="name"
                 name="userName"
                 class="bg-transparent border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                 placeholder="John Wick"
@@ -152,6 +156,7 @@ import Layout from "../layouts/Layout.astro";
             </label>
             <textarea
               name="userMessage"
+              id="message"
               rows="4"
               class="block p-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-black focus:ring-blue-500 focus:border-blue-500"
               placeholder="Leave a message..."
@@ -291,12 +296,15 @@ import Layout from "../layouts/Layout.astro";
 <style lang="scss">
   .shadow-text {
     color: #eeeeee;
-    font-family: Gothic A1;
+    font-family: "Gothic A1", sans-serif !important;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
   }
-
+  .heading-paragraph,
+  .hero-section-heading {
+    font-family: "Gothic A1", sans-serif !important;
+  }
   .submit-btn {
     font-family: inherit;
     padding: 0.7em 1em;
