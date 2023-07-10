@@ -84,6 +84,8 @@ try {
               id="share-icon"
               width={700}
               height={700}
+              data-title={blog?.title}
+              data-desc={blog?.metaDescription}
               class="w-[35px] p-2 mt-5 bg-blue-100 rounded cursor-pointer"
             />
             <input
@@ -143,8 +145,6 @@ try {
                   height={700}
                   class="w-[25px] flex items-center justify-center scale-125 cursor-pointer pr-2"
                   alt="search icon"
-                  data-metatitle={blog?.metaTitle}
-                  data-metadesc={blog?.metaDescription}
                 />
               </button>
             </div>
@@ -245,14 +245,10 @@ try {
     }
   };
 
-  shareIcon.addEventListener("click", (e) => {
-    console.log(e.target.dataset);
-  });
-
-  const shereBtn = async () => {
+  const shareBtn = async (title, text) => {
     const shareData = {
-      title: post?.metaTitle,
-      text: post?.metaDescription,
+      title,
+      text,
       url: location.href,
     };
     // if navigator.share do support then share with navigator.share else copy the input text url and give a msg 'link copied!'. afater 2s remove the msg and the selection of url container
@@ -272,4 +268,8 @@ try {
       }, 2000);
     }
   };
+
+  shareIcon.addEventListener("click", (e) => {
+    shareBtn(e.target.dataset.title, e.target.dataset.desc);
+  });
 </script>
