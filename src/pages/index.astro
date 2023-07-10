@@ -182,17 +182,7 @@ import Button from "../components/Button.astro";
   }
 </style>
 
-<style is:global>
-  :root {
-    --primary-color: #fff;
-    --secondary-color: #11cbff;
-  }
-  html {
-    scroll-behavior: smooth !important;
-  }
-</style>
-
-<script defer async>
+<script defer >
   const searchInputBox = document.querySelector("#search-input");
   const searchIconBox = document.querySelector("#search-icon");
 
@@ -206,13 +196,12 @@ import Button from "../components/Button.astro";
   const searchHandler = (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
       let searchText = e.target.value.trim().toLowerCase();
-      if (searchText) router.push(`/blog/search/${searchText}`);
+      if (searchText) open(`/blog/search?search=${searchText}`, "_self");
     } else if (e.type === "click") {
-      let parentNodeItem = e.target.parentNode.parentNode;
-      let searchInput = parentNodeItem.querySelector("#search");
-
+      let parentNodeItem = e.target.parentNode;
+      let searchInput = parentNodeItem.querySelector("#search-input");
       searchInput = searchInput?.value?.trim().toLowerCase();
-      if (searchInput) router.push(`/blog/search/${searchInput}`);
+      if (searchInput) open(`/blog/search?search=${searchInput}`, "_self");
     }
   };
 </script>

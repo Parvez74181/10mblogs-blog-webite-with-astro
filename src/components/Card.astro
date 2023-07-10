@@ -16,15 +16,11 @@ if (months < 10) months = `0${months + 1}`;
 let blogUploadDate: string = `${year}-${months}-${day}`;
 ---
 
-<div
-  class="card w-[20rem] relative rounded-lg shadow-lg bg-white"
-  data-aos="zoom-in-up"
-  data-aos-duration="1000"
->
+<div class="card w-[20rem] relative rounded-lg shadow-lg bg-white">
   {/* thumbnail image */}
   <div class="w-full relaive px-3 pt-3 md:p-3">
     <a href={`/blog/${slug}/${UID}`} class="w-1/3">
-      <img
+      <Image
         class={`rounded-md ${
           thumbnail?.includes("drive.google.com") ||
           thumbnail?.includes("res.cloudinary.com") ||
@@ -38,10 +34,9 @@ let blogUploadDate: string = `${year}-${months}-${day}`;
             }`
           : thumbnail}
         alt={slug}
-        loading="lazy"
-        decoding="async"
-        width={500}
-        height={200}
+        format="webp"
+        width={450}
+        height={300}
         style={{ width: "100%", height: "200px" }}
       />
     </a>
@@ -55,7 +50,7 @@ let blogUploadDate: string = `${year}-${months}-${day}`;
         <span>{blogUploadDate}</span>
       </span>
 
-      <a href={`/blog/category/${category}`} class="hover:underline">
+      <a href={`/blog/category?category=${category}`} class="hover:underline">
         <i class="font-bold text-sm">#</i>
         {category}
       </a>

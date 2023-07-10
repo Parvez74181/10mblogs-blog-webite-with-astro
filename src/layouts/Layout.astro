@@ -1,36 +1,172 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { Schema } from "astro-seo-schema";
+import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
+
 export interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  tags?: string;
+  createdAt?: Number;
 }
+const url = Astro.url.href;
 
-const { title } = Astro.props;
+const { title, description, image, tags, createdAt } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={url} />
+
+    <GoogleFontsOptimizer
+      url="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
     />
     <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Parvez" />
+    <meta
+      name="keywords"
+      content={tags
+        ? tags
+        : "Recipes, cuisines, gastronomy, culinary experiences, Techniques, tricks, culinary prowess, kitchen skills, Honest, unbiased, recommendations, informed decisions, Destinations, travel guides, personal experiences, tips, Personal development, wellness, productivity, self-care, Home Decor, Ideas, inspiration, DIY projects, cozy living spaces, Crafts and DIY, Creativity, DIY projects, crafts, artistic endeavors, Book and Movie Reviews, Thoughts, recommendations, genres, themes, Fashion and Beauty, Fashion trends, beauty tips, product reviews, Health and Fitness, Advice, workout routines, nutrition tips, wellness, Technology, Advancements, gadget reviews, tech news, insights, Inspiration and Motivation, Uplifting stories, motivational quotes, personal growth, Parenting and Family, Gardening and Plants, Pets and Animals, Photography, Finance and Money Management, Art and Design, Career Development, Social Issues and Activism, Travel Tips, Relationships and Dating, Self-Care and Mental Health, Home Organization, Beauty and Skincare, Green Living and Sustainability, Home Renovation, Entrepreneurship and Business, Personal Stories and Reflections, Food, Cooking Tips, Product Reviews, Travel Adventures, Lifestyle, Home Decor, Crafts and DIY, Book and Movie Reviews, Fashion and Beauty, Health and Fitness, Technology, Inspiration and Motivation, Parenting and Family, Gardening and Plants, Pets and Animals, Photography, Finance and Money Management, Art and Design, Career Development, Social Issues and Activism, Travel Tips, Relationships and Dating, Self-Care and Mental Health, Home Organization, Beauty and Skincare, Green Living and Sustainability, Home Renovation, Entrepreneurship and Business, Personal Stories and Reflections, Recipes, Culinary Experiences, Travel Guides, Personal Development, Wellness Tips, DIY Projects, Artistic Endeavors, Product Recommendations, Technology News, Uplifting Stories, Gardening Tips, Pet Care, Budgeting, Career Advice, Social Justice, Healthy Living, Organization Ideas, Fashion Trends, Fitness Tips, Motivational Quotes, Creative Projects, Book Recommendations, Movie Reviews, Home Improvement, Entrepreneurial Success, Personal Growth, Eco-Friendly Living"}
+    />
+
+    <meta name="robots" content="index,follow" />
+
+    <!-- open graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:site_name" content="https://www.10mblogs.xyz" />
+    <meta property="og:url" content={url} />
+    <meta
+      property="og:description"
+      content={description
+        ? description
+        : "Welcome to 10m Blogs, a place where I share my passion for a variety of topics, including food, cooking, reviews, DIY projects, and more. Through this blog, I aim to provide you with valuable insights, inspiration, and practical tips to enhance your everyday life."}
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:image"
+      content={image
+        ? image
+        : "https://images2.imgbox.com/57/86/tLuH2oxs_o.jpg"}
+    />
+
+    {/* google indexing meta tag */}
+    <meta
+      name="google-site-verification"
+      content="t2bQ1p8cAJTr0lMcrtGMULZirb0GlVA_W76s0VcgRnI"
+    />
+
+    {/* bing indexing meta tag */}
+    <meta name="msvalidate.01" content="CAE2B85CC2AA097D750003ECA98D55AA" />
+
+    {/* <!-- Twitter Card tags --> */}
+    <meta
+      name="twitter:card"
+      content="Discover a World of Diverse Insights | 10mBlogs"
+    />
+    <meta name="twitter:title" content={title} />
+    <meta
+      name="twitter:description"
+      content={description
+        ? description
+        : "Welcome to 10m Blogs, a place where I share my passion for a variety of topics, including food, cooking, reviews, DIY projects, and more. Through this blog, I aim to provide you with valuable insights, inspiration, and practical tips to enhance your everyday life."}
+    />
+    <meta
+      name="twitter:image"
+      content={image
+        ? image
+        : "https://images2.imgbox.com/57/86/tLuH2oxs_o.jpg"}
+    />
+
     <title>{title}</title>
+    <meta
+      name="description"
+      content={description
+        ? description
+        : "Welcome to 10m Blogs, a place where I share my passion for a variety of topics, including food, cooking, reviews, DIY projects, and more. Through this blog, I aim to provide you with valuable insights, inspiration, and practical tips to enhance your everyday life."}
+    />
     <style>
+      :root {
+        --primary-color: #fff;
+        --secondary-color: #11cbff;
+      }
       html,
       body {
         scroll-behavior: smooth !important;
+        margin: 0;
+        padding: 0;
       }
     </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.10mblogs.xyz/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Explore",
+            "item": "https://www.10mblogs.xyz/explore"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "About",
+            "item": "https://www.10mblogs.xyz/about"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Contact",
+            "item": "https://www.10mblogs.xyz/contact"
+          }
+        ]
+      }
+    </script>
+    {
+      createdAt && (
+        <Schema
+          item={{
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: { title },
+            image: { image },
+            author: {
+              "@type": "Person",
+              name: "Parvez",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "10mblogs.xyz",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://res.cloudinary.com/drxcxwm7x/image/upload/v1688977462/logo_paqhak.png",
+              },
+            },
+            datePublished: { createdAt },
+          }}
+        />
+      )
+    }
   </head>
   <body>
     <Navbar />
     <slot />
+    <Footer />
   </body>
 </html>

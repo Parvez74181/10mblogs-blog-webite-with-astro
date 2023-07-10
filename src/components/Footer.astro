@@ -1,0 +1,138 @@
+---
+export const prerender = false;
+import { Image } from "@astrojs/image/components";
+import footerLogo from "../../public/footer-logo.png";
+---
+
+<footer class="bg-gray-800 text-gray-200 w-full">
+  <div class="mx-auto w-full">
+    {/* upper part */}
+    <div
+      class="flex items-center justify-center flex-col md:justify-between md:flex-row p-5 md:w-3/4 md:mx-auto"
+    >
+      <a href="/" class="flex items-center mb-4 sm:mb-0">
+        <Image
+          width={300}
+          height={150}
+          format="webp"
+          src={footerLogo}
+          class="w-[150px] mr-3"
+          alt="Logo"
+        />
+      </a>
+      <ul class="flex flex-wrap items-center mb-6 font-medium sm:mb-0">
+        <li>
+          <a href="/" class="mr-4 hover:underline md:mr-6"> Home</a>
+        </li>
+        <li>
+          <a href="/about" class="mr-4 hover:underline md:mr-6"> About</a>
+        </li>
+        <li>
+          <a href="/explore" class="mr-4 hover:underline md:mr-6"> Explore</a>
+        </li>
+        <li>
+          <a href="/privacy-policy" class="mr-4 hover:underline md:mr-6">
+            Privacy Policy
+          </a>
+        </li>
+        <li>
+          <a href="/sitemap" class="mr-4 hover:underline md:mr-6"> Sitemap</a>
+        </li>
+        <li>
+          <a href="/affiliate-disclouser" class="mr-4 hover:underline md:mr-6">
+            Affiliate disclouser</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    {/* bottom part */}
+    <div
+      class="px-10 md:px-32 py-6 bg-gray-700 md:flex md:items-center md:justify-between"
+    >
+      <span
+        class="text-sm sm:text-center flex justify-center md:justify-normal"
+      >
+        © 2023 <a href="/">&nbsp;10mBlogs™</a>. All Rights Reserved.
+      </span>
+      {/* social media icons */}
+      <div class="mt-4 space-x-6 flex justify-center md:justify-normal md:mt-0">
+        {/* facebook */}
+        <a
+          href={"https://www.facebook.com/profile.php?id=100093847536861&mibextid=ZbWKwL"}
+          title="facebook"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.525 9H14V7C14 5.968 14.084 5.318 15.563 5.318H17.431V2.138C16.522 2.044 15.608 1.998 14.693 2C11.98 2 10 3.657 10 6.699V9H7V13L10 12.999V22H14V12.997L17.066 12.996L17.525 9Z"
+              fill="white"></path>
+          </svg>
+        </a>
+
+        {/* instagram */}
+        <a
+          href={"https://instagram.com/10mblogs?igshid=MzNlNGNkZWQ4Mg=="}
+          title="instagram"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 3C5.243 3 3 5.243 3 8V16C3 18.757 5.243 21 8 21H16C18.757 21 21 18.757 21 16V8C21 5.243 18.757 3 16 3H8ZM8 5H16C17.654 5 19 6.346 19 8V16C19 17.654 17.654 19 16 19H8C6.346 19 5 17.654 5 16V8C5 6.346 6.346 5 8 5ZM17 6C16.7348 6 16.4804 6.10536 16.2929 6.29289C16.1054 6.48043 16 6.73478 16 7C16 7.26522 16.1054 7.51957 16.2929 7.70711C16.4804 7.89464 16.7348 8 17 8C17.2652 8 17.5196 7.89464 17.7071 7.70711C17.8946 7.51957 18 7.26522 18 7C18 6.73478 17.8946 6.48043 17.7071 6.29289C17.5196 6.10536 17.2652 6 17 6ZM12 7C9.243 7 7 9.243 7 12C7 14.757 9.243 17 12 17C14.757 17 17 14.757 17 12C17 9.243 14.757 7 12 7ZM12 9C13.654 9 15 10.346 15 12C15 13.654 13.654 15 12 15C10.346 15 9 13.654 9 12C9 10.346 10.346 9 12 9Z"
+              fill="white"></path>
+          </svg>
+        </a>
+
+        {/* twitter */}
+        <a
+          href={"https://twitter.com/10mBlogs?t=PwsM0hnPHg7N52cfRs81Nw&s=09"}
+          title="twitter"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22 3.999C21.22 4.462 19.655 5.093 18.735 5.275C18.708 5.282 18.686 5.291 18.66 5.298C17.847 4.496 16.733 3.999 15.5 3.999C13.015 3.999 11 6.014 11 8.499C11 8.63 10.989 8.871 11 8.999C7.647 8.999 5.095 7.243 3.265 4.999C3.066 5.499 2.979 6.289 2.979 7.031C2.979 8.432 4.074 9.808 5.779 10.661C5.465 10.742 5.119 10.8 4.759 10.8C4.178 10.8 3.563 10.647 3 10.183C3 10.2 3 10.216 3 10.234C3 12.192 5.078 13.525 6.926 13.896C6.551 14.117 5.795 14.139 5.426 14.139C5.166 14.139 4.246 14.02 4 13.974C4.514 15.579 6.368 16.481 8.135 16.513C6.753 17.597 5.794 17.999 2.964 17.999H2C3.788 19.145 6.065 20 8.347 20C15.777 20 20 14.337 20 8.999C20 8.913 19.998 8.733 19.995 8.552C19.995 8.534 20 8.517 20 8.499C20 8.472 19.992 8.446 19.992 8.419C19.989 8.283 19.986 8.156 19.983 8.09C20.773 7.52 21.458 6.809 22 5.999C21.275 6.321 20.497 6.537 19.68 6.635C20.514 6.135 21.699 4.943 22 3.999ZM18 8.999C18 13.079 15.043 17.398 9.534 17.942C10.28 17.413 11 16.662 11 16.662C11 16.662 8 14 7.775 10.522C8.81 10.838 9.888 10.999 11 10.999H13V8.499C13.002 7.119 14.12 6 15.5 6C16.881 6 18 7.119 18 8.5C18 8.5 18 8.92 18 8.999Z"
+              fill="white"></path>
+          </svg>
+        </a>
+
+        {/* pinterest */}
+        <a
+          href={"https://pin.it/2aOGNDd"}
+          title="pinterest"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 4C16.418 4 20 7.582 20 12C20 16.418 16.418 20 12 20C11.2644 20 10.5555 19.893 9.87891 19.707C10.0917 19.2783 10.2826 18.8265 10.3867 18.4258C10.5017 17.9858 10.9727 16.1914 10.9727 16.1914C11.2787 16.7754 12.173 17.2715 13.125 17.2715C15.958 17.2715 18 14.6657 18 11.4277C18 8.32273 15.467 6 12.207 6C8.15203 6 6 8.72155 6 11.6855C6 13.0635 6.73325 14.7792 7.90625 15.3262C8.08425 15.4092 8.1797 15.3732 8.2207 15.2012C8.2527 15.0702 8.41142 14.4318 8.48242 14.1348C8.50542 14.0408 8.49497 13.9582 8.41797 13.8652C8.02997 13.3942 7.71875 12.5297 7.71875 11.7227C7.71875 9.64966 9.28794 7.64453 11.9609 7.64453C14.2689 7.64453 15.8848 9.2178 15.8848 11.4668C15.8848 14.0078 14.6016 15.7676 12.9316 15.7676C12.0096 15.7676 11.3171 15.0063 11.5391 14.0703C11.8041 12.9533 12.3184 11.7474 12.3184 10.9414C12.3184 10.2204 11.9329 9.61914 11.1309 9.61914C10.1879 9.61914 9.42969 10.5934 9.42969 11.9004C9.42969 12.7324 9.71094 13.2949 9.71094 13.2949C9.71094 13.2949 8.78038 17.2318 8.60938 17.9648C8.52463 18.3266 8.49634 18.7551 8.49414 19.1836C5.83577 17.8831 4 15.1586 4 12C4 7.582 7.582 4 12 4Z"
+              fill="white"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>;

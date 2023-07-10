@@ -57,7 +57,7 @@ try {
           <input
             type="search"
             id="search-navbar"
-            class="search-input block w-full p-2 px-7 border rounded-full font-normal border-gray-700 placeholder-gray-600 tracking-wider outline-none bg-transparent"
+            class="search-input block w-full p-2 pr-7 ps-4 border rounded-full font-normal border-gray-700 placeholder-gray-600 tracking-wider outline-none bg-transparent"
             placeholder="Search..."
           />
         </div>
@@ -117,7 +117,7 @@ try {
                 categories?.map((category: { name: string }) => (
                   <li class="dropdown-item">
                     <a
-                      href={`/blog/category/${category?.name}`}
+                      href={`/blog/category?category=${category?.name}`}
                       class="hover:bg-gray-200 rounded block py-2 pl-3 pr-4 tracking-wide font-normal category "
                     >
                       {category?.name}
@@ -223,7 +223,7 @@ try {
               categories?.map((category: { name: string }) => (
                 <li class="dropdown-item">
                   <a
-                    href={`/blog/category/${category?.name}`}
+                    href={`/blog/category?category=${category?.name}`}
                     class="hover:bg-gray-200 rounded block py-2 pl-3 pr-4 tracking-wide font-normal category "
                   >
                     {category?.name}
@@ -385,7 +385,7 @@ try {
       if (e.keyCode === 13 || e.key === "Enter") {
         let searchText = e.target.value.trim().toLowerCase();
 
-        // if (searchText) router.push(`/blog/search/${searchText}`);
+        if (searchText) open(`/blog/search?search=${searchText}`, "_self");
         e.target.value = "";
         closeSearchInLargeDevice();
       }
@@ -399,8 +399,6 @@ try {
     let hamburgerDropdown = document.querySelector("#dropdown");
     let normalDropdown = document.querySelector(".dropdown");
     let dropdownArrow = document.querySelectorAll(".dropdown-icon");
-
-    console.log(hamburgerDropdown, normalDropdown, dropdownArrow);
 
     hamburgerDropdown.classList.toggle("hidden"); // show or hide dropdown menu
     normalDropdown.classList.toggle("hidden"); // show or hide dropdown menu

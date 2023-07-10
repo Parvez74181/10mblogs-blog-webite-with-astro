@@ -20,7 +20,7 @@ interface Blogs {
 }
 
 let blogs: Blogs[];
-const page = Number(Astro.url.search.split("=")[1]) || 1;
+const page = Number(Astro.url.searchParams.get("page")) || 1;
 const pageSize = 20;
 
 try {
@@ -49,13 +49,13 @@ let totalBlogs: Number = await prisma.blogs.count();
 
 const pageCount = Math.ceil(Number(totalBlogs) / pageSize);
 
-let paginationItems: any = [];
+let paginationItems: String[] = [];
 
 // insert prev icon
 paginationItems.push(
-  `<li class="cursor-pointer flex justify-center items-center w-9 h-9 ${
+  `<li ><a class="cursor-pointer flex justify-center items-center w-9 h-9 ${
     page <= 1 && "opacity-50 cursor-default select-none"
-  }"><a ${page > 1 && `href=/explore?page=${page - 1}`}>
+  }" id='pagination-item' ${page > 1 && `href=/explore?page=${page - 1}`}>
     <img  src="/dropdown-icon.png" title="prev" height={20} width={20} loading='lazy' class="rotate-90" decoding='async' alt="prev button"/></a></li>`
 );
 
@@ -65,17 +65,17 @@ for (let i = page - 3; i <= page + 3; i++) {
   else if (i > pageCount) break; // if i is greater then pageCount then break the for loop
 
   paginationItems.push(
-    ` <li class="cursor-pointer flex justify-center items-center w-9 h-9 rounded hover:bg-blue-400 hover:text-white hover:shadow-lg ${
-      i === page && "bg-blue-400 text-white current"
-    }"><a href='/explore?page=${i}'>${i}</a></li>`
+    ` <li ><a class="cursor-pointer flex justify-center items-center w-9 h-9 rounded-full hover:bg-blue-500 hover:text-white hover:shadow-lg ${
+      i === page && "bg-blue-500 text-white current"
+    }" id='pagination-item' href='/explore?page=${i}'>${i}</a></li>`
   );
 }
 
 // insert next icon
 paginationItems.push(
-  `<li class="cursor-pointer flex justify-center items-center w-9 h-9  ${
+  `<li ><a class="cursor-pointer flex justify-center items-center w-9 h-9  ${
     page >= pageCount && "opacity-50 cursor-default select-none"
-  }"><a ${
+  }" id='pagination-item' ${
     page < pageCount && `href=/explore?page=${page + 1}`
   }> <img  src="/dropdown-icon.png" title="prev" height={20} width={20} loading='lazy' class="-rotate-90" decoding='async' alt="prev button"/></a></li>`
 );
@@ -167,7 +167,7 @@ paginationItems.push(
       </div>
     </section>
 
-    {/* pagination */}
+    <!-- pagination -->
     <div
       id="pagination"
       class="pagination w-full flex justify-center items-center px-20 my-10"
@@ -195,7 +195,7 @@ paginationItems.push(
   }
 </style>
 
-<script defer async>
+<script defer >
   const searchInputBox = document.querySelector("#search-input");
   const searchIconBox = document.querySelector("#search-icon");
 
@@ -210,13 +210,13 @@ paginationItems.push(
   const searchHandler = (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
       let searchText = e.target.value.trim().toLowerCase();
-      if (searchText) router.push(`/blog/search/${searchText}`);
+      if (searchText) open(`/blog/search?search=${searchText}`, "_self");
     } else if (e.type === "click") {
-      let parentNodeItem = e.target.parentNode.parentNode;
-      let searchInput = parentNodeItem.querySelector("#search");
+      let parentNodeItem = e.target.parentNode;
+      let searchInput = parentNodeItem.querySelector("#search-input");
 
       searchInput = searchInput?.value?.trim().toLowerCase();
-      if (searchInput) router.push(`/blog/search/${searchInput}`);
+      if (searchInput) open(`/blog/search?search=${searchInput}`, "_self");
     }
   };
 </script>

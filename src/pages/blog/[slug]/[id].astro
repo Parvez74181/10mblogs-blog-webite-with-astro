@@ -26,7 +26,13 @@ try {
 }
 ---
 
-<Layout title={blog?.title}>
+<Layout
+  title={blog?.title}
+  description={blog?.metaDescription}
+  image={blog?.thumbnail}
+  tags={blog?.postTags}
+  createdAt={blog?.createdAt}
+>
   <main id="slug-main" class="slug-main min-h-screen bg-white">
     <section
       class="flex justify-center items-start flex-wrap py-5 mx-5 md:mx-20 gap-5 md:gap-36"
@@ -42,29 +48,30 @@ try {
         <div class="relative" style={{ width: "100%" }}>
           {/* category */}
           <div class="category my-5 text-xl md:text-3xl tracking-widest">
-            <a href={`/blog/category/${blog?.category}`}>
+            <a href={`/blog/category?category=${blog?.category}`}>
               {blog?.category}
             </a>
           </div>
 
           {/* title */}
-          <h3 class={`mb-6 text-3xl font-bold tracking-wider text-gray-700`}>
+          <h3
+            class={`mb-6 text-2xl md:text-3xl font-bold tracking-wider text-gray-700`}
+          >
             {blog?.title}
           </h3>
 
           {/* image */}
 
-          <img
+          <Image
             src={blog?.thumbnail?.includes("drive.google.com")
               ? `https://drive.google.com/uc?export=view&id=${
                   blog?.thumbnail?.split("/")[5]
                 }`
               : blog?.thumbnail}
-            class="rounded-md object-contain max-h-[600px]"
+            class="rounded-md object-contain max-h-[500px]"
             width={800}
-            height={600}
-            loading="lazy"
-            decoding="async"
+            height={500}
+            format="webp"
             alt={blog?.slug}
           />
 
@@ -160,7 +167,7 @@ try {
                     class=" hover:text-gray-400 text-gray-700 cursor-pointer transition-all delay-50"
                   >
                     <a
-                      href={`/blog/category/${category.name}`}
+                      href={`/blog/category?category=${category.name}`}
                       class="hover:text-gray-400 text-gray-700 tracking-wide"
                     >
                       {category.name}
@@ -212,7 +219,7 @@ try {
   }
 </style>
 
-<script defer async>
+<script defer>
   const searchInputBox = document.querySelector("#search-input");
   const searchIconBox = document.querySelector("#search-icon");
   const shareIcon = document.querySelector("#share-icon");
@@ -248,7 +255,7 @@ try {
       text: post?.metaDescription,
       url: location.href,
     };
-    //  if navigator.share do support then share with navigator.share else copy the input text url and give a msg 'link copied!'. afater 2s remove the msg and the selection of url container
+    // if navigator.share do support then share with navigator.share else copy the input text url and give a msg 'link copied!'. afater 2s remove the msg and the selection of url container
     if (typeof navigator !== "undefined" && navigator.share)
       await navigator.share(shareData);
     else {
