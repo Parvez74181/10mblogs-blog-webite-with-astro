@@ -1,0 +1,268 @@
+---
+import prisma from "../../../../lib/prisma";
+import { Image } from "@astrojs/image/components";
+import shareIcon from "../../../../public/share-icon.svg";
+import searchIcon from "../../../../public/search-icon.svg";
+import goTopIcon from "../../../../public/go-to-top-icon.svg";
+import Layout from "../../../layouts/Layout.astro";
+import Description from "../../../components/Description.jsx";
+const { slug, id } = Astro.params;
+
+let blog: any;
+let categories: any;
+
+try {
+  blog = await prisma.blogs.findFirst({
+    where: {
+      slug,
+      UID: id,
+    },
+  });
+  categories = await prisma.categories.findMany();
+} catch (e) {
+  console.log(e);
+} finally {
+  await prisma.$disconnect();
+}
+---
+
+<Layout title={blog?.title}>
+  <main id="slug-main" class="slug-main min-h-screen bg-white">
+    <section
+      class="flex justify-center items-start flex-wrap py-5 mx-5 md:mx-20 gap-5 md:gap-36"
+    >
+      {/* left side main content  */}
+      <div
+        class="relative w-full lg:w-7/12 flex flex-col"
+        style={{
+          minHeight: "100vh",
+        }}
+      >
+        {/* main content */}
+        <div class="relative" style={{ width: "100%" }}>
+          {/* category */}
+          <div class="category my-5 text-xl md:text-3xl tracking-widest">
+            <a href={`/blog/category/${blog?.category}`}>
+              {blog?.category}
+            </a>
+          </div>
+
+          {/* title */}
+          <h3 class={`mb-6 text-3xl font-bold tracking-wider text-gray-700`}>
+            {blog?.title}
+          </h3>
+
+          {/* image */}
+
+          <img
+            src={blog?.thumbnail?.includes("drive.google.com")
+              ? `https://drive.google.com/uc?export=view&id=${
+                  blog?.thumbnail?.split("/")[5]
+                }`
+              : blog?.thumbnail}
+            class="rounded-md object-contain max-h-[600px]"
+            width={800}
+            height={600}
+            loading="lazy"
+            decoding="async"
+            alt={blog?.slug}
+          />
+
+          {/* share options */}
+
+          <div class="share-box">
+            <Image
+              src={shareIcon}
+              alt="share-icon"
+              id="share-icon"
+              width={700}
+              height={700}
+              class="w-[35px] p-2 mt-5 bg-blue-100 rounded cursor-pointer"
+            />
+            <input
+              type="url"
+              id="url-input"
+              class="w-[1px] outline-none border-none text-transparent"
+              value={blog?.id && Astro.url.href}
+              readonly
+            />
+            <span class="px-2 text-blue-300 link-copy-txt"></span>
+          </div>
+
+          {/* description */}
+          <Description description={blog?.description} client:visible />
+
+          <!-- set:html={blog?.description} -->
+        </div>
+
+        {/* scroll to top icon */}
+        <a
+          href={"#slug-main"}
+          class="fixed bottom-5 right-5 w-12 h-12 rounded-full shadow-xl flex justify-center items-center bg-slate-200 z-50"
+        >
+          <Image
+            src={goTopIcon}
+            height={700}
+            width={700}
+            class="w-[30px] p-1"
+            alt="go to top"
+          />
+        </a>
+      </div>
+
+      {/* ////////////////////// */}
+      {/* right side bar */}
+
+      <div
+        class="sticky top-0 md:top-24 md:mt-20 min-h-full w-full lg:w-3/12 flex flex-col"
+        style={{ gap: "50px" }}
+      >
+        {/* search input */}
+        <div class="flex flex-col items-center text-center">
+          <div class="flex w-full md:justify-start justify-center items-end">
+            <div class="relative w-full flex justify-center items-center">
+              <input
+                type="search"
+                id="search-input"
+                name="search"
+                placeholder="Top 10 books..."
+                class="w-full bg-opacity-50 border bg-transparent border-gray-700 placeholder:text-gray-500 outline-none text-gray-800 py-2 leading-8 transition-colors duration-200 ease-in-out rounded-full px-5 pr-12"
+              />
+              {/* search icon */}
+              <button id="search-icon" class="absolute right-3">
+                <Image
+                  src={searchIcon}
+                  width={700}
+                  height={700}
+                  class="w-[25px] flex items-center justify-center scale-125 cursor-pointer pr-2"
+                  alt="search icon"
+                  data-metatitle={blog?.metaTitle}
+                  data-metadesc={blog?.metaDescription}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* categories */}
+        <div class="relative" style={{ width: "100%" }}>
+          <div
+            class="categories-heading text-xl md:text-3xl font-bold tracking-widest"
+          >
+            Categories
+          </div>
+          <ul class="categories mt-5">
+            {
+              categories?.map((category: any) => {
+                return (
+                  <li
+                    id={category.id}
+                    class=" hover:text-gray-400 text-gray-700 cursor-pointer transition-all delay-50"
+                  >
+                    <a
+                      href={`/blog/category/${category.name}`}
+                      class="hover:text-gray-400 text-gray-700 tracking-wide"
+                    >
+                      {category.name}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .slug-main {
+    font-family: "Gothic A1", sans-serif !important;
+  }
+
+  .category,
+  .categories-heading {
+    color: #eeeeee;
+    font-family: Gothic A1 !important;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+
+  .categories {
+    li {
+      list-style: none;
+      padding-top: 10px;
+      padding-left: 10px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #e0e0e0;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #e0e0e0;
+      }
+    }
+  }
+</style>
+
+<script defer async>
+  const searchInputBox = document.querySelector("#search-input");
+  const searchIconBox = document.querySelector("#search-icon");
+  const shareIcon = document.querySelector("#share-icon");
+
+  searchInputBox.addEventListener("keyup", (e) => {
+    searchHandler(e);
+  });
+  searchIconBox.addEventListener("click", (e) => {
+    searchHandler(e);
+  });
+
+  //   searchHandler
+  const searchHandler = (e) => {
+    if (e.keyCode === 13 || e.key === "Enter") {
+      let searchText = e.target.value.trim().toLowerCase();
+      if (searchText) router.push(`/blog/search/${searchText}`);
+    } else if (e.type === "click") {
+      let parentNodeItem = e.target.parentNode.parentNode;
+      let searchInput = parentNodeItem.querySelector("#search");
+
+      searchInput = searchInput?.value?.trim().toLowerCase();
+      if (searchInput) router.push(`/blog/search/${searchInput}`);
+    }
+  };
+
+  shareIcon.addEventListener("click", (e) => {
+    console.log(e.target.dataset);
+  });
+
+  const shereBtn = async () => {
+    const shareData = {
+      title: post?.metaTitle,
+      text: post?.metaDescription,
+      url: location.href,
+    };
+    //  if navigator.share do support then share with navigator.share else copy the input text url and give a msg 'link copied!'. afater 2s remove the msg and the selection of url container
+    if (typeof navigator !== "undefined" && navigator.share)
+      await navigator.share(shareData);
+    else {
+      let txt = document.querySelector(".share-box .link-copy-txt");
+      let urlInput = document.querySelector("#url-input");
+
+      urlInput.select();
+      document.execCommand("copy");
+      txt.innerHTML = "Link Copied!";
+
+      setTimeout(() => {
+        txt.innerHTML = "";
+        urlInput.setSelectionRange(0, 0); // this means deselect
+      }, 2000);
+    }
+  };
+</script>

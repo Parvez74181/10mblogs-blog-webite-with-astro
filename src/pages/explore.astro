@@ -1,0 +1,222 @@
+---
+export const prerender = true;
+import { Image } from "@astrojs/image/components";
+import exploreSvg from "../../public/explore-bg-svg.svg";
+import searchIconSvg from "../../public/search-icon.svg";
+import Card from "../components/Card.astro";
+import Loader from "../components/Loader.astro";
+import prisma from "../../lib/prisma";
+import Layout from "../layouts/Layout.astro";
+
+const loading = false;
+
+interface Blogs {
+  thumbnail: String;
+  title: String;
+  slug: String;
+  category: String;
+  UID: String;
+  createdAt: any;
+}
+
+let blogs: Blogs[];
+const page = Number(Astro.url.search.split("=")[1]) || 1;
+const pageSize = 20;
+
+try {
+  blogs = await prisma.blogs.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    select: {
+      thumbnail: true,
+      title: true,
+      slug: true,
+      category: true,
+      UID: true,
+      createdAt: true,
+    },
+    skip: ((page || 1) - 1) * pageSize, // Calculate the number of items to skip. ex: page is 2 then 2-1 = 1 and finallay pageSize is show many items do I want to show, so 1*pageSize = 1*12 = 12 to skip
+    take: pageSize, // Define the number of items to take per page
+  });
+} catch (e) {
+  console.log(e);
+} finally {
+  await prisma.$disconnect();
+}
+
+let totalBlogs: Number = await prisma.blogs.count();
+
+const pageCount = Math.ceil(Number(totalBlogs) / pageSize);
+
+let paginationItems: any = [];
+
+// insert prev icon
+paginationItems.push(
+  `<li class="cursor-pointer flex justify-center items-center w-9 h-9 ${
+    page <= 1 && "opacity-50 cursor-default select-none"
+  }"><a ${page > 1 && `href=/explore?page=${page - 1}`}>
+    <img  src="/dropdown-icon.png" title="prev" height={20} width={20} loading='lazy' class="rotate-90" decoding='async' alt="prev button"/></a></li>`
+);
+
+for (let i = page - 3; i <= page + 3; i++) {
+  // if i is negative number then continue the for loop
+  if (i < 1) continue;
+  else if (i > pageCount) break; // if i is greater then pageCount then break the for loop
+
+  paginationItems.push(
+    ` <li class="cursor-pointer flex justify-center items-center w-9 h-9 rounded hover:bg-blue-400 hover:text-white hover:shadow-lg ${
+      i === page && "bg-blue-400 text-white current"
+    }"><a href='/explore?page=${i}'>${i}</a></li>`
+  );
+}
+
+// insert next icon
+paginationItems.push(
+  `<li class="cursor-pointer flex justify-center items-center w-9 h-9  ${
+    page >= pageCount && "opacity-50 cursor-default select-none"
+  }"><a ${
+    page < pageCount && `href=/explore?page=${page + 1}`
+  }> <img  src="/dropdown-icon.png" title="prev" height={20} width={20} loading='lazy' class="-rotate-90" decoding='async' alt="prev button"/></a></li>`
+);
+---
+
+<Layout title=" Explore New Horizons on our Explore Page! | Explore | 10mBlogs">
+  <main class={`min-h-screen`}>
+    <section>
+      <div class="hero-section mb-10 flex justify-center items-center flex-col">
+        <h1
+          class="shadow-text max-h-[100px] text-7xl mt-2 mx-2 md:text-[200px]"
+        >
+          EXPLORE
+        </h1>
+
+        <div
+          class="home-layout flex gap-5 justify-center flex-col md:flex-row items-center mx-2 md:mx-20"
+        >
+          <Image
+            src={exploreSvg}
+            alt="explore-bg-svg.svg"
+            class="w-4/5 md:w-5/12"
+            height={300}
+            width={438}
+            aspectRatio={1}
+          />
+
+          <div class="w-full md:w-2/3">
+            <h1
+              class="hero-section-heading text-3xl mx-5 my-5 md:text-6xl lg:w-[700px]"
+            >
+              An Inspiring Journey of Discovery and Delight!
+            </h1>
+
+            <p class="heading-paragraph mx-5 my-5 md:text-xl lg:w-[700px]">
+              Explore our page for inspiration! Discover delicious recipes,
+              honest reviews, and exciting DIY projects. Dive in with us and
+              unlock joy and fulfillment.
+            </p>
+
+            {/* search input */}
+            <div class="mx-5 my-5 flex items-center md:mr-14 relative">
+              <input
+                type="search"
+                id="search-input"
+                name="search"
+                placeholder="Search..."
+                class="w-full bg-opacity-50 border bg-transparent border-gray-700 placeholder:text-gray-600 outline-none text-gray-800 py-2 leading-8 transition-colors duration-200 ease-in-out rounded-full px-5 pr-12"
+              />
+              {/* search icon */}
+
+              <Image
+                src={searchIconSvg}
+                id="search-icon"
+                width={30}
+                height={30}
+                aspectRatio={1}
+                class="absolute right-2 flex items-center justify-center text-gray-900 cursor-pointer hover:text-blue-500 pr-2"
+                alt="search-icon"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* blogs */}
+
+      <div class="mx-auto mt-5 w-[80%] md:w-[90%]">
+        <h1
+          id="all-post-title"
+          class="shadow-text ms-2 md:ms-20 text-5xl md:text-9xl max-h-[70px]"
+        >
+          All Posts
+        </h1>
+      </div>
+
+      <div
+        class="content flex flex-wrap justify-center items-center my-10 mx-auto gap-8 w-[90%]"
+      >
+        {
+          loading ? (
+            <div>
+              <Loader />
+            </div>
+          ) : (
+            blogs?.map((post) => <Card postData={post} />)
+          )
+        }
+      </div>
+    </section>
+
+    {/* pagination */}
+    <div
+      id="pagination"
+      class="pagination w-full flex justify-center items-center px-20 my-10"
+    >
+      <ul
+        class="flex gap-5 items-center pagination-ul"
+        data-pagecount={pageCount}
+        set:html={paginationItems}
+      />
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .heading-paragraph,
+  .hero-section-heading {
+    font-family: Gothic A1 !important;
+  }
+  .shadow-text {
+    color: #eeeeee;
+    font-family: Gothic A1 !important;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+</style>
+
+<script defer async>
+  const searchInputBox = document.querySelector("#search-input");
+  const searchIconBox = document.querySelector("#search-icon");
+
+  searchInputBox.addEventListener("keyup", (e) => {
+    searchHandler(e);
+  });
+  searchIconBox.addEventListener("click", (e) => {
+    searchHandler(e);
+  });
+
+  //   searchHandler
+  const searchHandler = (e) => {
+    if (e.keyCode === 13 || e.key === "Enter") {
+      let searchText = e.target.value.trim().toLowerCase();
+      if (searchText) router.push(`/blog/search/${searchText}`);
+    } else if (e.type === "click") {
+      let parentNodeItem = e.target.parentNode.parentNode;
+      let searchInput = parentNodeItem.querySelector("#search");
+
+      searchInput = searchInput?.value?.trim().toLowerCase();
+      if (searchInput) router.push(`/blog/search/${searchInput}`);
+    }
+  };
+</script>

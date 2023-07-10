@@ -1,0 +1,284 @@
+---
+export const prerender = false;
+import { Image } from "@astrojs/image/components";
+import searchIcon from "../../public/search-icon.svg";
+import contactBg from "../../public/contact-bg-svg.svg";
+---
+
+<section class="pt-5 min-h-screen">
+  {/* hero section */}
+  <div class="hero-section mb-10 flex justify-center items-center flex-col">
+    <h1
+      class="shadow-text max-h-[100px] text-[75px] md:text-9xl lg:text-[150px]"
+    >
+      CONTACT
+    </h1>
+
+    <div
+      class={`flex gap-5 justify-center flex-col md:flex-row items-center mx-2 md:mx-20`}
+    >
+      <Image
+        src={contactBg}
+        alt="contact-bg-svg.svg"
+        class="w-2/5 md:w-5/12"
+        height={300}
+        width={438}
+      />
+
+      <div class="w-full md:w-2/3">
+        <h1 class="hero-section-heading text-4xl mx-5 my-5 md:text-6xl">
+          Connect with Us: Your Voice Matters!
+        </h1>
+
+        <p class="heading-paragraph mx-5 my-5 md:text-xl lg:w-[550px]">
+          We're here to help! Reach out with any questions or feedback. We value
+          your input and will respond promptly.
+        </p>
+
+        {/* search input */}
+        <div class="mx-5 my-5 flex items-center md:mr-14 relative">
+          <input
+            type="search"
+            id="search-input"
+            name="search"
+            placeholder="Search..."
+            class="w-full bg-opacity-50 border bg-transparent border-gray-700 placeholder:text-gray-600 outline-none text-gray-800 py-2 leading-8 transition-colors duration-200 ease-in-out rounded-full px-5 pr-12"
+          />
+          {/* search icon */}
+
+          <Image
+            src={searchIcon}
+            width={30}
+            height={30}
+            class="absolute right-2 flex items-center justify-center text-gray-900 cursor-pointer hover:text-blue-500 pr-2"
+            alt="search-icon"
+            id="search-icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class={`flex flex-col lg:flex-row justify-center items-center gap-20 pt-5`}
+  >
+    {/* contact form */}
+    <div class="w-[95%] md:w-1/2 lg:w-2/6 mb-10 p-5 mx-auto">
+      <form class="mb-10 p-5 mx-auto shadow-lg rounded-md">
+        <h1 class="text-center text-3xl font-semibold mb-5">Contact Form</h1>
+
+        {/* user email */}
+        <div class="mb-5">
+          <label
+            html-for="userEmail"
+            class="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Your Email
+          </label>
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5 text-gray-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                ></path>
+                <path
+                  d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="email"
+              name="userEmail"
+              class="bg-transparent border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+              placeholder="john@gmail.com"
+              required
+            />
+          </div>
+        </div>
+
+        {/* user name */}
+        <div class="mb-5">
+          <label
+            html-for="userName"
+            class="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Your Name
+          </label>
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5 text-gray-500"
+                fill="currentColor"
+                viewBox="0 0 21 22"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.8977 21.6023C9.15909 21.6023 7.62216 21.3636 6.28693 20.8864C4.9517 20.4148 3.82955 19.7188 2.92045 18.7983C2.01136 17.8778 1.32386 16.75 0.857955 15.4148C0.392045 14.0795 0.159091 12.5511 0.159091 10.8295C0.159091 9.16477 0.394886 7.67614 0.866477 6.36364C1.34375 5.05114 2.03409 3.9375 2.9375 3.02273C3.84659 2.10227 4.94886 1.40057 6.24432 0.917614C7.54545 0.434659 9.01705 0.193181 10.6591 0.193181C12.2557 0.193181 13.6534 0.454545 14.8523 0.977272C16.0568 1.49432 17.0625 2.19602 17.8693 3.08239C18.6818 3.96307 19.2898 4.95454 19.6932 6.05682C20.1023 7.15909 20.3068 8.29545 20.3068 9.46591C20.3068 10.2898 20.267 11.125 20.1875 11.9716C20.108 12.8182 19.9403 13.5966 19.6847 14.3068C19.429 15.0114 19.0341 15.5795 18.5 16.0114C17.9716 16.4432 17.2557 16.6591 16.3523 16.6591C15.9545 16.6591 15.517 16.5966 15.0398 16.4716C14.5625 16.3466 14.1392 16.1392 13.7699 15.8494C13.4006 15.5597 13.1818 15.1705 13.1136 14.6818H13.0114C12.875 15.0114 12.6648 15.3239 12.3807 15.6193C12.1023 15.9148 11.7358 16.1506 11.2812 16.3267C10.8324 16.5028 10.2841 16.5795 9.63636 16.5568C8.89773 16.5284 8.24716 16.3636 7.68466 16.0625C7.12216 15.7557 6.65057 15.3409 6.26989 14.8182C5.89489 14.2898 5.6108 13.679 5.41761 12.9858C5.23011 12.2869 5.13636 11.5341 5.13636 10.7273C5.13636 9.96023 5.25 9.25852 5.47727 8.62216C5.70455 7.9858 6.01989 7.42898 6.4233 6.9517C6.83239 6.47443 7.30966 6.09375 7.85511 5.80966C8.40625 5.51989 9 5.34091 9.63636 5.27273C10.2045 5.21591 10.7216 5.24148 11.1875 5.34943C11.6534 5.4517 12.0369 5.60795 12.3381 5.81818C12.6392 6.02273 12.8295 6.25 12.9091 6.5H13.0114V5.54545H14.8182V13.25C14.8182 13.7273 14.9517 14.1477 15.2188 14.5114C15.4858 14.875 15.875 15.0568 16.3864 15.0568C16.9659 15.0568 17.4091 14.858 17.7159 14.4602C18.0284 14.0625 18.2415 13.4489 18.3551 12.6193C18.4744 11.7898 18.5341 10.7273 18.5341 9.43182C18.5341 8.67045 18.429 7.92045 18.2188 7.18182C18.0142 6.4375 17.7017 5.74148 17.2812 5.09375C16.8665 4.44602 16.3409 3.875 15.7045 3.38068C15.0682 2.88636 14.321 2.5 13.4631 2.22159C12.6108 1.9375 11.642 1.79545 10.5568 1.79545C9.22159 1.79545 8.02557 2.00284 6.96875 2.41761C5.91761 2.8267 5.02273 3.42614 4.28409 4.21591C3.55114 5 2.99148 5.95455 2.60511 7.07955C2.22443 8.19886 2.03409 9.47159 2.03409 10.8977C2.03409 12.3466 2.22443 13.6335 2.60511 14.7585C2.99148 15.8835 3.55966 16.8324 4.30966 17.6051C5.06534 18.3778 6 18.9631 7.11364 19.3608C8.22727 19.7642 9.51136 19.9659 10.9659 19.9659C11.5909 19.9659 12.2074 19.9063 12.8153 19.7869C13.4233 19.6676 13.9602 19.5369 14.4261 19.3949C14.892 19.2528 15.2273 19.1477 15.4318 19.0795L15.9091 20.6477C15.5568 20.7955 15.0966 20.9432 14.5284 21.0909C13.9659 21.2386 13.3636 21.3608 12.7216 21.4574C12.0852 21.554 11.4773 21.6023 10.8977 21.6023ZM9.90909 14.8182C10.6705 14.8182 11.2869 14.6648 11.7585 14.358C12.2301 14.0511 12.5739 13.5881 12.7898 12.9688C13.0057 12.3494 13.1136 11.5682 13.1136 10.625C13.1136 9.67045 12.9943 8.92614 12.7557 8.39205C12.517 7.85795 12.1648 7.48295 11.6989 7.26705C11.233 7.05114 10.6591 6.94318 9.97727 6.94318C9.32955 6.94318 8.77557 7.11364 8.31534 7.45455C7.8608 7.78977 7.51136 8.23864 7.26705 8.80114C7.02841 9.35795 6.90909 9.96591 6.90909 10.625C6.90909 11.3523 7.00568 12.0369 7.19886 12.679C7.39205 13.3153 7.70739 13.8324 8.14489 14.2301C8.58239 14.6222 9.17045 14.8182 9.90909 14.8182Z"
+                ></path>
+              </svg>
+            </div>
+
+            <input
+              type="text"
+              name="userName"
+              class="bg-transparent border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+              placeholder="John Wick"
+              required
+            />
+          </div>
+        </div>
+
+        {/* user message */}
+        <div class="mb-5">
+          <label
+            html-for="userMessage"
+            class="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Your message
+          </label>
+          <textarea
+            name="userMessage"
+            rows="4"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-black focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Leave a message..."
+            required></textarea>
+        </div>
+
+        {/* submit button */}
+        <div>
+          <button
+            id="submit-btn"
+            class="submit-btn flex justify-center items-center border border-black w-full p-3 hover:shadow-xl rounded-xl transition-all delay-75"
+          >
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 21 21"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M17.7049 0.65672L0.964066 10.3108C-0.42027 11.1117 -0.28747 13.16 1.19345 13.7677L5.79314 15.6711V19.0676C5.79314 20.9348 8.17549 21.7034 9.27813 20.2185L11.0407 17.8402L15.5439 19.6994C15.7813 19.796 16.0308 19.8443 16.2803 19.8443C16.6103 19.8443 16.9362 19.7597 17.23 19.5947C17.7451 19.305 18.0992 18.7899 18.1918 18.2064L20.5822 2.62457C20.8277 1.01085 19.0972 -0.144102 17.7049 0.65672ZM7.72477 19.0676V16.4679L9.19764 17.0756L7.72477 19.0676ZM16.2803 17.9126L10.091 15.3572L15.733 7.21622C16.1636 6.59246 15.3507 5.8681 14.7792 6.36308L6.268 13.7797L1.92988 11.9849L18.6707 2.32678L16.2803 17.9126Z"
+                    fill="black"></path>
+                </svg>
+              </div>
+            </div>
+            <span>Send</span>
+          </button>
+
+          {/* success or error message */}
+          <!-- {formSubmitted !== null && (
+                  <div class="mt-5 mb-10">
+                    {formSubmitted && (
+                      <span class="absolute text-green-600">
+                        Thank you for your opinion!💕
+                      </span>
+                    )}
+
+                    {formSubmitted === false && (
+                      <span class="absolute text-red-600">
+                        Something wrong! Please try again.😢
+                      </span>
+                    )}
+                  </div>
+                )} -->
+        </div>
+      </form>
+
+      {/* social media follow link */}
+      <div
+        class="mb-10 p-5 shadow-lg rounded-md flex justify-between items-center"
+      >
+        <span>Follow me on:</span>
+
+        {/* facebook */}
+        <a
+          href={"https://www.facebook.com/profile.php?id=100093847536861&mibextid=ZbWKwL"}
+          title="facebook"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.525 9H14V7C14 5.968 14.084 5.318 15.563 5.318H17.431V2.138C16.522 2.044 15.608 1.998 14.693 2C11.98 2 10 3.657 10 6.699V9H7V13L10 12.999V22H14V12.997L17.066 12.996L17.525 9Z"
+              fill="black"></path>
+          </svg>
+        </a>
+
+        {/* instagram */}
+        <a
+          href={"https://instagram.com/10mblogs?igshid=MzNlNGNkZWQ4Mg=="}
+          title="instagram"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 3C5.243 3 3 5.243 3 8V16C3 18.757 5.243 21 8 21H16C18.757 21 21 18.757 21 16V8C21 5.243 18.757 3 16 3H8ZM8 5H16C17.654 5 19 6.346 19 8V16C19 17.654 17.654 19 16 19H8C6.346 19 5 17.654 5 16V8C5 6.346 6.346 5 8 5ZM17 6C16.7348 6 16.4804 6.10536 16.2929 6.29289C16.1054 6.48043 16 6.73478 16 7C16 7.26522 16.1054 7.51957 16.2929 7.70711C16.4804 7.89464 16.7348 8 17 8C17.2652 8 17.5196 7.89464 17.7071 7.70711C17.8946 7.51957 18 7.26522 18 7C18 6.73478 17.8946 6.48043 17.7071 6.29289C17.5196 6.10536 17.2652 6 17 6ZM12 7C9.243 7 7 9.243 7 12C7 14.757 9.243 17 12 17C14.757 17 17 14.757 17 12C17 9.243 14.757 7 12 7ZM12 9C13.654 9 15 10.346 15 12C15 13.654 13.654 15 12 15C10.346 15 9 13.654 9 12C9 10.346 10.346 9 12 9Z"
+              fill="black"></path>
+          </svg>
+        </a>
+
+        {/* twitter */}
+        <a
+          href={"https://twitter.com/10mBlogs?t=PwsM0hnPHg7N52cfRs81Nw&s=09"}
+          title="twitter"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22 3.999C21.22 4.462 19.655 5.093 18.735 5.275C18.708 5.282 18.686 5.291 18.66 5.298C17.847 4.496 16.733 3.999 15.5 3.999C13.015 3.999 11 6.014 11 8.499C11 8.63 10.989 8.871 11 8.999C7.647 8.999 5.095 7.243 3.265 4.999C3.066 5.499 2.979 6.289 2.979 7.031C2.979 8.432 4.074 9.808 5.779 10.661C5.465 10.742 5.119 10.8 4.759 10.8C4.178 10.8 3.563 10.647 3 10.183C3 10.2 3 10.216 3 10.234C3 12.192 5.078 13.525 6.926 13.896C6.551 14.117 5.795 14.139 5.426 14.139C5.166 14.139 4.246 14.02 4 13.974C4.514 15.579 6.368 16.481 8.135 16.513C6.753 17.597 5.794 17.999 2.964 17.999H2C3.788 19.145 6.065 20 8.347 20C15.777 20 20 14.337 20 8.999C20 8.913 19.998 8.733 19.995 8.552C19.995 8.534 20 8.517 20 8.499C20 8.472 19.992 8.446 19.992 8.419C19.989 8.283 19.986 8.156 19.983 8.09C20.773 7.52 21.458 6.809 22 5.999C21.275 6.321 20.497 6.537 19.68 6.635C20.514 6.135 21.699 4.943 22 3.999ZM18 8.999C18 13.079 15.043 17.398 9.534 17.942C10.28 17.413 11 16.662 11 16.662C11 16.662 8 14 7.775 10.522C8.81 10.838 9.888 10.999 11 10.999H13V8.499C13.002 7.119 14.12 6 15.5 6C16.881 6 18 7.119 18 8.5C18 8.5 18 8.92 18 8.999Z"
+              fill="black"></path>
+          </svg>
+        </a>
+
+        {/* pinterest */}
+        <a
+          href={"https://pin.it/2aOGNDd"}
+          title="pinterest"
+          class="cursor-pointer"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 4C16.418 4 20 7.582 20 12C20 16.418 16.418 20 12 20C11.2644 20 10.5555 19.893 9.87891 19.707C10.0917 19.2783 10.2826 18.8265 10.3867 18.4258C10.5017 17.9858 10.9727 16.1914 10.9727 16.1914C11.2787 16.7754 12.173 17.2715 13.125 17.2715C15.958 17.2715 18 14.6657 18 11.4277C18 8.32273 15.467 6 12.207 6C8.15203 6 6 8.72155 6 11.6855C6 13.0635 6.73325 14.7792 7.90625 15.3262C8.08425 15.4092 8.1797 15.3732 8.2207 15.2012C8.2527 15.0702 8.41142 14.4318 8.48242 14.1348C8.50542 14.0408 8.49497 13.9582 8.41797 13.8652C8.02997 13.3942 7.71875 12.5297 7.71875 11.7227C7.71875 9.64966 9.28794 7.64453 11.9609 7.64453C14.2689 7.64453 15.8848 9.2178 15.8848 11.4668C15.8848 14.0078 14.6016 15.7676 12.9316 15.7676C12.0096 15.7676 11.3171 15.0063 11.5391 14.0703C11.8041 12.9533 12.3184 11.7474 12.3184 10.9414C12.3184 10.2204 11.9329 9.61914 11.1309 9.61914C10.1879 9.61914 9.42969 10.5934 9.42969 11.9004C9.42969 12.7324 9.71094 13.2949 9.71094 13.2949C9.71094 13.2949 8.78038 17.2318 8.60938 17.9648C8.52463 18.3266 8.49634 18.7551 8.49414 19.1836C5.83577 17.8831 4 15.1586 4 12C4 7.582 7.582 4 12 4Z"
+              fill="black"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

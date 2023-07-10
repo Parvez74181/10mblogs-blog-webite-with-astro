@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Blogs {
+  id              Int      @id @default(autoincrement())
+  UID             String   @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  thumbnail       String   @db.Text
+  postTags        String   @db.Text
+  title           String   @db.Text
+  slug            String   @db.Text
+  description     String   @db.LongText // the @db.LongText is for store unlimited length of String charecter
+  category        String   @db.Text
+  metaTitle       String   @db.Text
+  metaDescription String   @db.Text
+}
+
+model Categories {
+  id        Int      @id @default(autoincrement())
+  UID       String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @db.Text
+}

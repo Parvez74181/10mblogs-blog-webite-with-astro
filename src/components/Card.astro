@@ -1,0 +1,109 @@
+---
+import { Image } from "@astrojs/image/components";
+import clockIcon from "../../public/clock-icon.svg";
+
+const { thumbnail, title, slug, category, UID, createdAt }: typeof Astro.props =
+  Astro.props.postData;
+
+const date = new Date(createdAt);
+let day: number | string = date.getDate();
+let months: number | string = date.getMonth();
+let year: number = date.getFullYear();
+
+if (day < 10) day = "0" + day;
+if (months < 10) months = `0${months + 1}`;
+
+let blogUploadDate: string = `${year}-${months}-${day}`;
+---
+
+<div
+  class="card w-[20rem] relative rounded-lg shadow-lg bg-white"
+  data-aos="zoom-in-up"
+  data-aos-duration="1000"
+>
+  {/* thumbnail image */}
+  <div class="w-full relaive px-3 pt-3 md:p-3">
+    <a href={`/blog/${slug}/${UID}`} class="w-1/3">
+      <img
+        class={`rounded-md ${
+          thumbnail?.includes("drive.google.com") ||
+          thumbnail?.includes("res.cloudinary.com") ||
+          thumbnail?.includes("blogger.googleusercontent.com")
+            ? "object-cover"
+            : "object-contain"
+        }`}
+        src={thumbnail.includes("drive.google.com")
+          ? `https://drive.google.com/uc?export=view&id=${
+              thumbnail.split("/")[5]
+            }`
+          : thumbnail}
+        alt={slug}
+        loading="lazy"
+        decoding="async"
+        width={500}
+        height={200}
+        style={{ width: "100%", height: "200px" }}
+      />
+    </a>
+  </div>
+
+  <div class="p-4 pt-2 w-full">
+    {/* author and upload time */}
+    <div class="mb-2 flex justify-between items-center text-gray-600">
+      <span class="flex justify-center items-center gap-1">
+        <Image src={clockIcon} alt="clock-icon" height={15} width={15} />
+        <span>{blogUploadDate}</span>
+      </span>
+
+      <a href={`/blog/category/${category}`} class="hover:underline">
+        <i class="font-bold text-sm">#</i>
+        {category}
+      </a>
+    </div>
+
+    {/* title */}
+    <a href={`/blog/${slug}/${UID}`}>
+      <h5 class="title font-bold text-gray-700 tracking-wider leading-7">
+        {title}
+      </h5>
+    </a>
+
+    <a
+      href={`/blog/${slug}/${UID}`}
+      class="read-more-btn inline-flex items-center text-sm tracking-wide text-center rounded-md mt-2 transition-all delay-75 text-gray-600"
+    >
+      Read more &nbsp;
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width={14}
+        height={14}
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+        ></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<style lang="scss">
+  .card {
+    font-family: "Gothic A1", sans-serif !important;
+  }
+  .title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    height: 55px;
+  }
+</style>

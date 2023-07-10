@@ -1,0 +1,12 @@
+User-agent: *
+
+Allow: /
+
+Disallow: /admin
+Disallow: /admin/admin-dashboard
+Disallow: /admin/all-post
+Disallow: /admin/create-post
+Disallow: /admin/add-category
+Disallow: /login
+
+Sitemap: https://www.10mblogs.xyz/sitemap.xml

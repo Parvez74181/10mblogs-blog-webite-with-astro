@@ -1,0 +1,446 @@
+---
+export const prerender = true;
+import { Image } from "@astrojs/image/components";
+import Logo from "../../public/logo.png";
+import SearchIcon from "../../public/search-icon.svg";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+let categories: { name: string }[] | undefined;
+try {
+  categories = await prisma.categories.findMany({
+    select: {
+      name: true,
+    },
+  });
+} catch (error) {
+  console.log(error);
+}
+---
+
+<nav class="nav border-gray-200 bg-white sticky top-0 z-50">
+  <div
+    class="mx-auto md:mx-10 md:px-5 p-4 flex flex-wrap items-center justify-between"
+  >
+    <a href="/" class="flex items-center">
+      <Image
+        src={Logo}
+        width={400}
+        height={200}
+        aspectRatio={1}
+        format="webp"
+        class="w-[100px] mr-3"
+        alt="10m blogs logo"
+      />
+    </a>
+
+    <div class="flex md:order-2">
+      {/* search input box */}
+      <div class="relative">
+        <div class="hidden md:inline-block">
+          <Image
+            src={SearchIcon}
+            alt="search-icon"
+            title="search"
+            height={25}
+            width={25}
+            aspectRatio={1}
+            id="nav-search-icon"
+            class="flex items-center justify-center text-gray-900 cursor-pointer hover:text-blue-500"
+          />
+        </div>
+
+        <div
+          id="search-navbar-container"
+          class="big-screen-search-input-box scale-0 absolute p-3 w-72 md:w-72 right-0 top-10 bg-white shadow shadow-blue-200 rounded-lg"
+        >
+          <input
+            type="search"
+            id="search-navbar"
+            class="search-input block w-full p-2 px-7 border rounded-full font-normal border-gray-700 placeholder-gray-600 tracking-wider outline-none bg-transparent"
+            placeholder="Search..."
+          />
+        </div>
+      </div>
+
+      {/* hamburger menu for mobile devices */}
+      <div id="hamburger" class="hamburger-menu-container flex md:hidden">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    {/* naigations for large devices */}
+    <div
+      class="items-center justify-between w-full hidden md:flex md:w-auto md:order-1"
+      id="navbar-search"
+    >
+      <ul
+        class={`md:flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white`}
+      >
+        {/* home */}
+        <li>
+          <a
+            href="/"
+            class="block py-2 pl-3 pr-4 rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+            aria-current="page"
+          >
+            Home
+          </a>
+        </li>
+        {/* Explore */}
+        <li>
+          <span class="flex justify-center items-center">
+            <a
+              href="/explore"
+              id="explore-dropdown"
+              class="inline-block py-2 pl-3 pr-4 cursor-pointer rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+            >
+              Explore
+            </a>
+            <img
+              src="/dropdown-icon.svg"
+              height={20}
+              width={15}
+              class="ms-2 dropdown-icon cursor-pointer"
+              alt="dropdown-icon"
+            />
+          </span>
+
+          {/* dropdown */}
+          <div
+            class={`hidden absolute bg-white border shadow-md mt-2 mx-0 px-4 p-2 w-2/4 md:w-fit rounded-md dropdown`}
+          >
+            <ul style={{ maxHeight: "300px", overflowY: "auto" }}>
+              {
+                categories?.map((category: { name: string }) => (
+                  <li class="dropdown-item">
+                    <a
+                      href={`/blog/category/${category?.name}`}
+                      class="hover:bg-gray-200 rounded block py-2 pl-3 pr-4 tracking-wide font-normal category "
+                    >
+                      {category?.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </li>
+
+        {
+          /* =================================TODO========================================= */
+        }
+        {/* shop */}
+        {
+          /* <li>
+            <a
+              href="/about"
+              class="block py-2 pl-3 pr-4  rounded md:p-0 hover:text-blue-400  hover:bg-gray-200  md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+            
+            >
+              Shop
+            </a>
+          </li> */
+        }
+
+        {/* about */}
+        <li>
+          <a
+            href="/about"
+            class="block py-2 pl-3 pr-4 rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+          >
+            About
+          </a>
+        </li>
+
+        {/* contact us */}
+        <li>
+          <a
+            href="/contact"
+            class="block py-2 pl-3 pr-4 rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+          >
+            Contact Us
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  {/* navigations for medium or small devices */}
+  {/* navigation for mobile or tablet devices */}
+  <div
+    id="hamburger-navbar"
+    class="hidden h-[100vh] w-[90vw] absolute top-0 right-0 bg-white flex-col shadow-lg translate-x-full transition-all delay-75 ease-in-out"
+  >
+    <img
+      src="/close-icon.svg"
+      alt="close icon"
+      height={38}
+      width={38}
+      id="close-nav-icon"
+      class="absolute right-5 top-6 p-2 text-xl border flex justify-center items-center border-black rounded-md"
+    />
+    <ul class={`relative h-[30vh] flex flex-col justify-around mt-20 mx-5`}>
+      {/* home */}
+      <li>
+        <a
+          href="/"
+          class="block py-2 pl-3 pr-4 rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+          aria-current="page"
+        >
+          Home
+        </a>
+      </li>
+
+      {/* Explore */}
+      <li>
+        <span class="flex items-center">
+          <a
+            href="/explore"
+            id="explore-dropdown"
+            class="nav-item inline-block py-2 pl-3 pr-4 cursor-pointer rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+          >
+            Explore
+          </a>
+          <img
+            src="/dropdown-icon.svg"
+            height={20}
+            width={15}
+            class="ms-2 dropdown-icon cursor-pointer"
+            alt="dropdown-icon"
+          />
+        </span>
+
+        {/* dropdown */}
+        <div
+          id="dropdown"
+          class={`hidden absolute bg-white border shadow-md mt-2 mx-0 p-4  w-3/4 md:w-fit z-10 rounded-md dropdown`}
+        >
+          <ul style={{ maxHeight: "300px", overflowY: "auto" }}>
+            {
+              categories?.map((category: { name: string }) => (
+                <li class="dropdown-item">
+                  <a
+                    href={`/blog/category/${category?.name}`}
+                    class="hover:bg-gray-200 rounded block py-2 pl-3 pr-4 tracking-wide font-normal category "
+                  >
+                    {category?.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </li>
+
+      {
+        /* =================================TODO========================================= */
+      }
+      {/* shop */}
+      {
+        /* <li>
+              <a
+                href="/about"
+                class="block py-2 pl-3 pr-4  rounded md:p-0 hover:text-blue-400  hover:bg-gray-200  md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+                onClick={() => {
+                  closeNavbar();
+                }}
+              >
+                Shop
+              </a>
+            </li> */
+      }
+
+      {/* about */}
+      <li class="nav-item">
+        <a
+          href="/about"
+          class="block py-2 pl-3 pr-4 rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+        >
+          About
+        </a>
+      </li>
+
+      {/* contact us */}
+      <li class="nav-item">
+        <a
+          href="/contact"
+          class="block py-2 pl-3 pr-4 rounded md:p-0 hover:text-blue-400 hover:bg-gray-200 md:hover:bg-transparent border-gray-700 transition ease-in-out delay-50"
+        >
+          Contact Us
+        </a>
+      </li>
+    </ul>
+    {/* search input box for mobile devices */}
+    <div class="relative mt-3 mx-8">
+      <div
+        class="absolute inset-y-0 right-0 flex items-center pl-3 pointer-events-none"
+      >
+        <img
+          src="/search-icon.svg"
+          alt="search-icon"
+          title="search"
+          height={40}
+          width={40}
+          class="fa-solid fa-magnifying-glass pr-4 flex items-center justify-center text-gray-900"
+        />
+      </div>
+
+      {/* this search input for only mobile and tab devices */}
+      <!-- id="search-navbar" -->
+      <input
+        type="search"
+        class="search-input block w-full p-3 ps-5 pr-10 text-sm border border-gray-700 placeholder-gray-600 font-normal focus:border-gray-900 outline-none rounded-full"
+        placeholder="Search..."
+      />
+    </div>
+  </div>
+</nav>
+
+<style lang="scss">
+  .nav {
+    font-weight: 700 !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-family: "Gothic A1", sans-serif !important;
+
+    a {
+      font-weight: 600;
+    }
+  }
+  #search-navbar-container {
+    transform-origin: right top;
+    transition: 0.3s;
+  }
+
+  #search-navbar {
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-family: "Inter", sans-serif !important;
+  }
+  .hamburger-menu-container {
+    width: 30px;
+    height: 20px;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: column;
+    span {
+      position: relative;
+      width: 100%;
+      height: 3px;
+      background-color: black;
+      border-radius: 100px !important;
+
+      &:nth-child(2) {
+        width: 80%;
+      }
+      &:nth-child(3) {
+        width: 60%;
+      }
+    }
+    &.active {
+      background: #000;
+    }
+  }
+</style>
+
+<script defer async>
+  const searchInput = document.querySelectorAll(".search-input");
+  const dropdownIcon = document.querySelectorAll(".dropdown-icon");
+
+  const dropdownItems = document.querySelectorAll(".dropdown-item");
+  const navSearchIcon = document.querySelector("#nav-search-icon");
+  const hamburger = document.querySelector("#hamburger");
+  const closeNavIcon = document.querySelector("#close-nav-icon");
+
+  // to close the navbar when user clicks to the navLinks or dropdown navLinks
+  const closeNavbar = () => {
+    let navbarSearch = document.querySelector("#hamburger-navbar");
+    navbarSearch.classList.toggle("hidden");
+    navbarSearch.classList.toggle("translate-x-full");
+    let hamburgerDropdown = document.querySelector(
+      "#hamburger-navbar .dropdown"
+    );
+
+    hamburgerDropdown.classList.add("hidden");
+
+    let dropdownArrow = document.querySelectorAll(".dropdown-icon");
+    dropdownArrow.forEach((dropdown) =>
+      dropdown.classList.remove("rotate-180")
+    );
+  };
+
+  closeNavIcon.addEventListener("click", closeNavbar);
+
+  // closeSearchInLargeDevice
+  const closeSearchInLargeDevice = () => {
+    let searchInput = document.querySelector(".big-screen-search-input-box");
+    searchInput.classList.remove("scale-100");
+  };
+
+  // searchHandler
+  searchInput.forEach((input) => {
+    input.addEventListener("keyup", (e) => {
+      if (e.keyCode === 13 || e.key === "Enter") {
+        let searchText = e.target.value.trim().toLowerCase();
+
+        // if (searchText) router.push(`/blog/search/${searchText}`);
+        e.target.value = "";
+        closeSearchInLargeDevice();
+      }
+    });
+
+    input.addEventListener("blur", closeSearchInLargeDevice);
+  });
+
+  // to show dropdown menu
+  const dropdown = () => {
+    let hamburgerDropdown = document.querySelector("#dropdown");
+    let normalDropdown = document.querySelector(".dropdown");
+    let dropdownArrow = document.querySelectorAll(".dropdown-icon");
+
+    console.log(hamburgerDropdown, normalDropdown, dropdownArrow);
+
+    hamburgerDropdown.classList.toggle("hidden"); // show or hide dropdown menu
+    normalDropdown.classList.toggle("hidden"); // show or hide dropdown menu
+    dropdownArrow.forEach((dropdown) =>
+      dropdown.classList.toggle("rotate-180")
+    );
+  };
+
+  dropdownIcon.forEach((icon) => {
+    icon.addEventListener("click", dropdown);
+  });
+
+  dropdownItems.forEach((item) => {
+    item.addEventListener("click", dropdown);
+  });
+
+  //  to open navbar menu in the mobile or tab view
+  const openNavbar = () => {
+    let navbarSearch = document.querySelector("#hamburger-navbar");
+    navbarSearch.classList.toggle("hidden");
+    navbarSearch.classList.toggle("translate-x-full");
+
+    // if in the navbar menu the explore navLink dropdown is active then deactivate means hide the dropdown and make the arrow down side when the navbar is collapse or hidden
+    if (navbarSearch.classList.contains("hidden")) {
+      document.querySelector(".dropdown").classList.add("hidden");
+      document.querySelector(".fa-angle-down").classList.remove("fa-angle-up");
+    }
+  };
+
+  hamburger.addEventListener("click", openNavbar);
+
+  // show search-input box
+
+  navSearchIcon.addEventListener("click", () => {
+    let searchInput = document.querySelector(".big-screen-search-input-box");
+
+    if (searchInput.classList.contains("scale-100")) {
+      searchInput.classList.remove("scale-100");
+    } else {
+      searchInput.classList.add("scale-100");
+    }
+  });
+</script>
