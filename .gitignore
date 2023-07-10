@@ -1,8 +1,8 @@
 # build output
 dist/
-.vercel
+.vercel/
 .vercel/*
-.vscode
+.vscode/
 
 # generated types
 .astro/

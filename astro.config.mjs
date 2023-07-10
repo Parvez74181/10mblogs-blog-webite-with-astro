@@ -7,8 +7,6 @@ import prefetch from "@astrojs/prefetch";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel/serverless";
 
-import webmanifest from "astro-webmanifest";
-
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -18,11 +16,7 @@ export default defineConfig({
     sitemap(),
     prefetch(),
     react(),
-    webmanifest({ name: "Your app name", icon: "public/favicon.png" }),
   ],
-  build: {
-    split: true,
-  },
   output: "server",
   adapter: vercel(),
   site: "https://10mblogs.xyz",
