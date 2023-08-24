@@ -1,7 +1,7 @@
 {
   "name": "astro",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
@@ -23,7 +23,6 @@
     "astro-compress": "^1.1.49",
     "astro-imagetools": "^0.8.1",
     "astro-seo-schema": "^2.2.0",
-    "axios": "^1.4.0",
     "html-react-parser": "^4.0.0",
     "prisma": "^4.16.2",
     "react": "^18.2.0",

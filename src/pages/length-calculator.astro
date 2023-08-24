@@ -1,10 +1,135 @@
 ---
 export const prerender = true;
 import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+const lengths = ["Foot", "Inch", "Meter", "Centimeter", "Mile", "Milimeter"];
 ---
 
-<Layout title="Length Calculator | 10mblogs"><h1>Coming Soon...</h1></Layout>
-<script>
-  const url = `https://akshayanand.herokuapp.com/api/unit/?type=type&from=from&to=to&value=value`;
-  // documentation = https://akshayanandraut.github.io/api-unit-converter/
+<Layout title="Length Calculator | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      Length Converter
+    </h1>
+
+    <div
+      class="container my-10 mb-5 w-[90%] md:w-1/3 mx-auto flex flex-wrap gap-3"
+    >
+      <!-- from -->
+      <div class="w-full flex gap-2">
+        <select
+          name="from-option"
+          class="border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          id="from-option"
+        >
+          {lengths?.map((length) => <option value={length}>{length}</option>)}
+        </select>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          type="number"
+          name="fromInput"
+          id="fromInput"
+          placeholder="350"
+        />
+      </div>
+
+      <!-- to -->
+      <div class="w-full flex gap-2">
+        <select
+          name="to-option"
+          class="border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          id="to-option"
+        >
+          {lengths?.map((length) => <option value={length}>{length}</option>)}
+        </select>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          type="number"
+          name="toInput"
+          id="toInput"
+          placeholder="350"
+          disabled
+        />
+      </div>
+    </div>
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const fromOptions = document.querySelector("#from-option");
+  const toOptions = document.querySelector("#to-option");
+  const fromInput = document.querySelector("#fromInput");
+  const toInput = document.querySelector("#toInput");
+  let fromOption = "foot";
+  let toOption = "foot";
+
+  fromOptions.addEventListener("change", (e) => {
+    fromOption = e.target.value;
+  });
+
+  toOptions.addEventListener("change", (e) => {
+    toOption = e.target.value;
+  });
+
+  const conversions = {
+    "foot-foot": (value) => value,
+    "foot-inch": (value) => value * 12,
+    "foot-meter": (value) => value * 0.3048,
+    "foot-centimeter": (value) => value * 30.48,
+    "foot-mile": (value) => value * 0.000189394,
+    "foot-millimeter": (value) => value * 304.8,
+
+    "inch-foot": (value) => value / 12,
+    "inch-inch": (value) => value,
+    "inch-meter": (value) => value * 0.0254,
+    "inch-centimeter": (value) => value * 2.54,
+    "inch-mile": (value) => value * 0.00001578283,
+    "inch-millimeter": (value) => value * 25.4,
+
+    "meter-foot": (value) => value * 3.28084,
+    "meter-inch": (value) => value * 39.3701,
+    "meter-meter": (value) => value,
+    "meter-centimeter": (value) => value * 100,
+    "meter-mile": (value) => value * 0.000621371,
+    "meter-millimeter": (value) => value * 1000,
+
+    "centimeter-foot": (value) => value * 0.0328084,
+    "centimeter-inch": (value) => value * 0.393701,
+    "centimeter-meter": (value) => value * 0.01,
+    "centimeter-mile": (value) => value * 6.2137e-6,
+    "centimeter-millimeter": (value) => value * 10,
+
+    "mile-foot": (value) => value * 5280,
+    "mile-inch": (value) => value * 63360,
+    "mile-meter": (value) => value * 1609.34,
+    "mile-centimeter": (value) => value * 160934,
+    "mile-millimeter": (value) => value * 1609340,
+
+    "millimeter-foot": (value) => value * 0.00328084,
+    "millimeter-inch": (value) => value * 0.0393701,
+    "millimeter-meter": (value) => value * 0.001,
+    "millimeter-centimeter": (value) => value * 0.1,
+    "millimeter-mile": (value) => value * 6.2137e-7,
+  };
+
+  function convertUnits(value, conversionKey) {
+    const conversionFunc = conversions[conversionKey];
+
+    if (!conversionFunc) {
+      return "Conversion not supported";
+    }
+    return conversionFunc(value);
+  }
+
+  fromInput.addEventListener("keyup", async (e) => {
+    const n = e.target.value;
+
+    const conversionKey =
+      fromOption.toLowerCase() + "-" + toOption.toLowerCase();
+
+    const result = await convertUnits(n, conversionKey);
+    toInput.value = result.toFixed(3);
+  });
 </script>
