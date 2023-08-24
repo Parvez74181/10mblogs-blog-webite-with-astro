@@ -1,0 +1,54 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Word count | 10mblogs">
+  <main class="min-h-screen w-full">
+    <div class="container my-10 w-[90%] md:w-1/2 mx-auto">
+      <h1
+        class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+      >
+        Word Counter
+      </h1>
+      <textarea
+        name="input-box"
+        class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none resize-none max-h-[500px]"
+        id="input-box"
+        cols="30"
+        rows="20"
+        placeholder="Paste your content..."></textarea>
+
+      <div
+        class="mt-5 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+      >
+        Total Word:&nbsp;<span id="count-show">0</span>
+      </div>
+    </div>
+
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const input_text = document.querySelector("#input-box");
+  let count_show = document.querySelector("#count-show");
+
+  const count = (e) => {
+    // Use setTimeout to ensure that the value is updated after the paste operation
+
+    setTimeout(() => {
+      let value = e.target.value;
+      value = value.replace(/[\s\n]/g, "");
+      count_show.innerText = value.length;
+    }, 10);
+  };
+
+  input_text.addEventListener("paste", (e) => {
+    count(e);
+  });
+  input_text.addEventListener("keydown", (e) => {
+    count(e);
+  });
+</script>

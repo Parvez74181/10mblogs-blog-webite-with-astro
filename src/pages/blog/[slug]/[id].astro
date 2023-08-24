@@ -55,11 +55,11 @@ try {
           </div>
 
           {/* title */}
-          <h3
+          <h1
             class={`mb-6 text-2xl md:text-3xl font-bold tracking-wider text-gray-700`}
           >
             {blog?.title}
-          </h3>
+          </h1>
 
           {/* image */}
 
@@ -105,6 +105,7 @@ try {
           <!-- set:html={blog?.description} -->
         </div>
 
+        <div class="hidden">{blog?.postTags}</div>
         {/* scroll to top icon */}
         <a
           href={"#slug-main"}

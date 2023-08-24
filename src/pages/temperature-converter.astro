@@ -1,0 +1,134 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Temperature Converter | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      Temperature Converter
+    </h1>
+
+    <div class="container my-10 w-[90%] md:w-2/3 mx-auto flex gap-3">
+      <!-- fahrenheit -->
+      <div class="w-full">
+        <label for="fahrenheit" class="block mb-2">Fahrenheit</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none"
+          type="text"
+          name="fahrenheit"
+          id="fahrenheit"
+        />
+      </div>
+
+      <!-- celsius -->
+      <div class="w-full">
+        <label for="celsius" class="block mb-2">Celsius</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none"
+          type="text"
+          name="celsius"
+          id="celsius"
+        />
+      </div>
+
+      <!-- kelvin -->
+      <div class="w-full">
+        <label for="kelvin" class="block mb-2">Kelvin</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none"
+          type="text"
+          name="kelvin"
+          id="kelvin"
+        />
+      </div>
+    </div>
+
+    <!-- transform buttons -->
+    <div
+      class="buttons w-[90%] md:w-2/3 flex mx-auto flex-wrap items-center gap-3 mt-5"
+    >
+      <button
+        id="f2c"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Fahrenheit to Celsius</button
+      >
+      <button
+        id="f2k"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Fahrenheit to Kelvin</button
+      >
+
+      <button
+        id="c2f"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Celsius to Fahrenheit</button
+      >
+
+      <button
+        id="c2k"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Celsius to Kelvin</button
+      >
+
+      <button
+        id="k2f"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Kelvin to Fahrenheit</button
+      >
+
+      <button
+        id="k2c"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Kelvin to Celsius</button
+      >
+    </div>
+
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const f2c = document.querySelector("#f2c");
+  const f2k = document.querySelector("#f2k");
+  const c2f = document.querySelector("#c2f");
+  const c2k = document.querySelector("#c2k");
+  const k2c = document.querySelector("#k2c");
+  const k2f = document.querySelector("#k2f");
+  const fahrenheit = document.querySelector("#fahrenheit");
+  const celsius = document.querySelector("#celsius");
+  const kelvin = document.querySelector("#kelvin");
+
+  f2c.addEventListener("click", () => {
+    let temp = ((parseFloat(fahrenheit.value) - 32) * 5) / 9;
+    celsius.value = temp.toFixed(3);
+  });
+
+  f2k.addEventListener("click", () => {
+    let temp = ((parseFloat(fahrenheit.value) - 32) * 5) / 9 + 273.15;
+    kelvin.value = temp.toFixed(3);
+  });
+
+  c2f.addEventListener("click", () => {
+    let temp = (parseFloat(celsius.value) * 9) / 5 + 32;
+    fahrenheit.value = temp.toFixed(3);
+  });
+
+  c2k.addEventListener("click", () => {
+    let temp = parseFloat(celsius.value) + 273.15;
+    kelvin.value = temp.toFixed(3);
+  });
+
+  k2c.addEventListener("click", () => {
+    let temp = parseFloat(kelvin.value) - 273.15;
+    celsius.value = temp.toFixed(3);
+  });
+
+  k2f.addEventListener("click", () => {
+    let temp = (parseFloat(kelvin.value) * 9) / 5 - 459.67;
+    fahrenheit.value = temp.toFixed(3);
+  });
+</script>

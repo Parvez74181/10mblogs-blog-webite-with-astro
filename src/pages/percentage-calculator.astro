@@ -1,0 +1,87 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Percentage Calculator | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      Percentage Calculator
+    </h1>
+
+    <div class="container my-10 mb-5 w-[90%] md:w-2/3 mx-auto flex gap-3">
+      <!-- number -->
+      <div class="w-full">
+        <label for="number" class="block mb-2">Number</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          type="number"
+          name="number"
+          id="number"
+          placeholder="350"
+        />
+      </div>
+
+      <!-- percentage -->
+      <div class="w-full">
+        <label for="percentage" class="block mb-2">Percentage</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          type="number"
+          name="percentage"
+          id="percentage"
+          placeholder="7.5"
+        />
+      </div>
+    </div>
+
+    <!-- button -->
+    <div class="button w-[90%] md:w-2/3 mx-auto">
+      <button
+        id="calculate"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Calculate</button
+      >
+    </div>
+
+    <!-- result -->
+    <div class="w-[90%] md:w-2/3 mt-5 mx-auto">
+      <label for="result" class="block mb-2">Result</label>
+      <input
+        class="w-full text-[14px] rounded-md bg-blue-50 p-3 font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 outline-none"
+        type="text"
+        name="result"
+        id="result"
+        disabled
+      />
+    </div>
+
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const numberInput = document.querySelector("#number");
+  const percentageInput = document.querySelector("#percentage");
+  const resultOutput = document.querySelector("#result");
+  const calculate = document.querySelector("#calculate");
+
+  calculate.addEventListener("click", calculatePercentage);
+
+  function calculatePercentage() {
+    const number = parseFloat(numberInput.value);
+    const percentage = parseFloat(percentageInput.value);
+
+    if (isNaN(number) || isNaN(percentage)) {
+      resultElement.textContent =
+        "Please enter valid numbers for the number and percentage.";
+      return;
+    }
+
+    const result = (percentage / 100) * number;
+    resultOutput.value = result.toFixed(2);
+  }
+</script>

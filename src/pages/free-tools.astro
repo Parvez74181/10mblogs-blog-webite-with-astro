@@ -1,0 +1,219 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import { Image } from "@astrojs/image/components";
+import WordCount from "../../public/word-counter.svg";
+import TextCase from "../../public/text-case.svg";
+import Minifier from "../../public/minifier.svg";
+import Temperature from "../../public/temperature.svg";
+import Age from "../../public/age.svg";
+import Length from "../../public/length.svg";
+import Bmi from "../../public/bmi.svg";
+import Percentage from "../../public/percentage.svg";
+import ColorPicker from "../../public/color-picker.svg";
+import colorCode from "../../public/color-code.svg";
+---
+
+<Layout title="Free tools at your services | 10mblogs">
+  <main class="min-h-screen">
+    <h1 class="my-10 mx-auto font-medium text-xl md:text-3xl text-center">
+      Free Tools
+    </h1>
+
+    <div
+      class="flex flex-wrap justify-center items-center gap-5 md:gap-8 mx-auto relative w-[90%] md:w-1/2 my-10"
+    >
+      <!-- word count -->
+      <a href="/word-count">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="word_count"
+        >
+          <Image
+            class="w-10"
+            src={WordCount}
+            alt="word counter"
+            width={100}
+            height={100}
+          />
+          Word Counter
+        </div>
+      </a>
+
+      <!-- change text case -->
+      <a href="/change-text-case">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="change_text_case"
+        >
+          <Image
+            class="w-10"
+            src={TextCase}
+            alt="change text case"
+            width={100}
+            height={100}
+          />
+          Change Text Case
+        </div>
+      </a>
+
+      <!-- html minifier -->
+      <a href="/html-minifier">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="html_minifier"
+        >
+          <Image
+            class="w-10"
+            src={Minifier}
+            alt="html minifier"
+            width={100}
+            height={100}
+          />
+          HTML Minifier
+        </div>
+      </a>
+
+      <!-- css minifier -->
+      <a href="/css-minifier">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="css_minifier"
+        >
+          <Image
+            class="w-10"
+            src={Minifier}
+            alt="css minifier"
+            width={100}
+            height={100}
+          />
+          CSS Minifier
+        </div>
+      </a>
+
+      <!-- js minifier -->
+      <a href="/js-minifier">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="js_minifier"
+        >
+          <Image
+            class="w-10"
+            src={Minifier}
+            alt="js minifier"
+            width={100}
+            height={100}
+          />
+          JS Minifier
+        </div>
+      </a>
+
+      <!-- Temperature -->
+      <a href="/temperature-converter">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="temperature_minifier"
+        >
+          <Image
+            class="w-10"
+            src={Temperature}
+            alt="Temperature"
+            width={100}
+            height={100}
+          />
+          Temperature Converter
+        </div>
+      </a>
+
+      <!-- Age -->
+      <a href="/age-calculator">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="age_calculator"
+        >
+          <Image class="w-10" src={Age} alt="age" width={100} height={100} />
+          Age Calculator
+        </div>
+      </a>
+
+      <!-- Length -->
+      <a href="/length-calculator">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="length_calculator"
+        >
+          <Image
+            class="w-10"
+            src={Length}
+            alt="length"
+            width={100}
+            height={100}
+          />
+          Length Converter
+        </div>
+      </a>
+
+      <!-- Bmi -->
+      <a href="/bmi-calculator">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-3 items-center hover:bg-blue-400 hover:text-white"
+          id="bmi_calculator"
+        >
+          <Image class="w-10" src={Bmi} alt="BMI" width={100} height={100} />
+          BMI Calculator
+        </div>
+      </a>
+
+      <!-- Percentage -->
+      <a href="/percentage-calculator">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-5 items-center hover:bg-blue-400 hover:text-white"
+          id="percentage_calculator"
+        >
+          <Image
+            class="w-10"
+            src={Percentage}
+            alt="Percentage"
+            width={100}
+            height={100}
+          />
+          Percentage Calculator
+        </div>
+      </a>
+
+      <!-- color picker -->
+      <a href="/color-picker">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-5 items-center hover:bg-blue-400 hover:text-white"
+          id="color_picker"
+        >
+          <Image
+            class="w-10"
+            src={ColorPicker}
+            alt="color picker"
+            width={100}
+            height={100}
+          />
+          Color Picker
+        </div>
+      </a>
+
+      <!-- color code -->
+      <a href="/color-code">
+        <div
+          class="w-64 md:w-48 h-16 rounded-md border flex justify-center gap-5 items-center hover:bg-blue-400 hover:text-white"
+          id="color_code"
+        >
+          <Image
+            class="w-10"
+            src={colorCode}
+            alt="color code"
+            width={100}
+            height={100}
+          />
+          Color Code Generator
+        </div>
+      </a>
+    </div>
+  </main>
+</Layout>

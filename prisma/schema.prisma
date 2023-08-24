@@ -33,3 +33,28 @@ model Categories {
   updatedAt DateTime @updatedAt
   name      String   @db.Text
 }
+
+model Softwarecategories {
+  id        Int      @id @default(autoincrement())
+  UID       String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @db.Text
+}
+
+model Software {
+  id              Int      @id @default(autoincrement())
+  UID             String   @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  thumbnail       String   @db.Text
+  postTags        String   @db.Text
+  title           String   @db.Text
+  slug            String   @db.Text
+  description     String   @db.LongText // the @db.LongText is for store unlimited length of String charecter
+  category        String   @db.Text
+  metaTitle       String   @db.Text
+  metaDescription String   @db.Text
+  downloadLink    String   @default("") @db.Text
+  companyName     String   @default("") @db.Text
+}

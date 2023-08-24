@@ -1,0 +1,129 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Transform Your Text Case | 10mblogs">
+  <main class="min-h-screen w-full">
+    <div class="container my-10 w-[90%] md:w-1/2 mx-auto">
+      <h1
+        class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+      >
+        Transform Your Text Case
+      </h1>
+      <textarea
+        name="input-box"
+        class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none resize-none max-h-[500px]"
+        id="input-box"
+        cols="30"
+        rows="20"
+        placeholder="Paste your content..."></textarea>
+
+      <div
+        class="mt-5 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+      >
+        Total Word:&nbsp;<span id="count-show">0</span>
+      </div>
+
+      <!-- transform buttons -->
+      <div class="buttons flex flex-wrap items-center gap-3 mt-5">
+        <button
+          id="uppercase-btn"
+          class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+          >UPPERCASE</button
+        >
+        <button
+          id="lowercase-btn"
+          class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+          >lowercase</button
+        >
+        <button
+          id="sentence-case-btn"
+          class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+          >Sentence case</button
+        >
+        <button
+          id="capital-each-word-btn"
+          class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+          >Capital Each Word</button
+        >
+        <button
+          id="toggle-case-btn"
+          class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+          >tOGGOL cASE</button
+        >
+      </div>
+    </div>
+
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const inputText = document.querySelector("#input-box");
+  const countShow = document.querySelector("#count-show");
+
+  const uppercaseBtn = document.querySelector("#uppercase-btn");
+  const lowercaseBtn = document.querySelector("#lowercase-btn");
+  const sentenceCaseBtn = document.querySelector("#sentence-case-btn");
+  const capitalEachWordBtn = document.querySelector("#capital-each-word-btn");
+  const toggleCaseBtn = document.querySelector("#toggle-case-btn");
+
+  inputText.addEventListener("input", () => {
+    updateCharacterCount(inputText.value);
+  });
+
+  uppercaseBtn.addEventListener("click", () => {
+    inputText.value = inputText.value.toUpperCase();
+    updateCharacterCount(inputText.value);
+  });
+
+  lowercaseBtn.addEventListener("click", () => {
+    inputText.value = inputText.value.toLowerCase();
+    updateCharacterCount(inputText.value);
+  });
+
+  sentenceCaseBtn.addEventListener("click", () => {
+    inputText.value = toSentenceCase(inputText.value);
+    updateCharacterCount(inputText.value);
+  });
+
+  capitalEachWordBtn.addEventListener("click", () => {
+    inputText.value = toCapitalEachWord(inputText.value);
+    updateCharacterCount(inputText.value);
+  });
+
+  toggleCaseBtn.addEventListener("click", () => {
+    inputText.value = toggleCase(inputText.value);
+    updateCharacterCount(inputText.value);
+  });
+
+  function updateCharacterCount(text) {
+    let valueWithoutSpaces = text.replace(/[\s\n]/g, "");
+    countShow.textContent = `Character Count: ${valueWithoutSpaces.length}`;
+  }
+
+  function toSentenceCase(text) {
+    return text
+      .toLowerCase()
+      .replace(/(?:^|\.\s+)(\w)/g, (match) => match.toUpperCase());
+  }
+
+  function toCapitalEachWord(text) {
+    return text.replace(/\b\w/g, (match) => match.toUpperCase());
+  }
+
+  function toggleCase(text) {
+    return text
+      .split("")
+      .map((char) => {
+        if (char === char.toLowerCase()) {
+          return char.toUpperCase();
+        } else {
+          return char.toLowerCase();
+        }
+      })
+      .join("");
+  }
+</script>

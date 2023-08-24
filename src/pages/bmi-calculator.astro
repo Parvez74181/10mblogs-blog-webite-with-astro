@@ -1,0 +1,100 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="BMI Calculator | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      BMI Calculator
+    </h1>
+
+    <div class="container my-10 mb-5 w-[90%] md:w-2/3 mx-auto flex gap-3">
+      <!-- height -->
+      <div class="w-full">
+        <label for="height" class="block mb-2">Height (cm):</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none"
+          type="number"
+          name="height"
+          id="height"
+        />
+      </div>
+
+      <!-- weight -->
+      <div class="w-full">
+        <label for="weight" class="block mb-2">Weight (kg):</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 placeholder:text-blue-300 outline-none"
+          type="number"
+          name="weight"
+          id="weight"
+        />
+      </div>
+    </div>
+
+    <!-- button -->
+    <div class="button w-[90%] md:w-2/3 mx-auto">
+      <button
+        id="calculate"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Calculate</button
+      >
+    </div>
+
+    <!-- result -->
+    <div class="w-[90%] md:w-2/3 mx-auto mt-5">
+      <label for="result" class="block mb-2">Result</label>
+      <input
+        class="w-full text-[14px] rounded-md bg-blue-50 p-3 font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 outline-none"
+        type="text"
+        name="result"
+        id="result"
+        disabled
+      />
+    </div>
+
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const heightInput = document.querySelector("#height");
+  const weightInput = document.querySelector("#weight");
+  const result = document.querySelector("#result");
+  const calculate = document.querySelector("#calculate");
+
+  calculate.addEventListener("click", calculateBMI);
+
+  function calculateBMI() {
+    const height = parseFloat(heightInput.value) / 100; // Convert cm to meters
+    const weight = parseFloat(weightInput.value);
+
+    if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+      result.value = "Please enter valid values for height and weight.";
+      return;
+    }
+
+    const bmi = weight / (height * height);
+    const bmiCategory = getBMICategory(bmi);
+
+    result.value = `Your BMI is ${bmi.toFixed(
+      2
+    )}. You are categorized as ${bmiCategory}.`;
+  }
+
+  function getBMICategory(bmi) {
+    if (bmi < 18.5) {
+      return "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return "Normal weight";
+    } else if (bmi >= 25 && bmi < 29.9) {
+      return "Overweight";
+    } else {
+      return "Obese";
+    }
+  }
+</script>

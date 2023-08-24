@@ -1,0 +1,65 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Color Code Generator | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      Color Code Generator
+    </h1>
+
+    <div class="container my-10 mb-5 w-[90%] md:w-2/3 mx-auto flex gap-3">
+      <!-- display -->
+      <div
+        class="w-full h-12 border border-blue-400 p-3 rounded-md shadow focus:border-blue-600"
+        id="display"
+      >
+      </div>
+
+      <!-- result -->
+      <input
+        class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+        type="text"
+        name="result"
+        id="result"
+        disabled
+      />
+    </div>
+
+    <!-- button -->
+    <div class="w-[90%] md:w-2/3 mx-auto">
+      <button
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        id="generate">Generate Color</button
+      >
+    </div>
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const display = document.querySelector("#display");
+  const result = document.querySelector("#result");
+  const generate = document.querySelector("#generate");
+
+  generate.addEventListener("click", generateColor);
+
+  function generateColor() {
+    const randomColor = getRandomColor();
+    display.style.backgroundColor = randomColor;
+    result.value = randomColor;
+  }
+
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+</script>

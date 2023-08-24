@@ -1,0 +1,67 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Color Picker | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      Color Picker
+    </h1>
+
+    <div class="container my-10 mb-5 w-[90%] md:w-2/3 mx-auto flex gap-3">
+      <!-- color -->
+      <div class="w-full">
+        <label for="color" class="block mb-2">Choose Color:</label>
+        <input
+          class="w-full h-12 border border-blue-400 p-1 rounded-md shadow focus:border-blue-600 outline-none"
+          type="color"
+          name="color"
+          id="color"
+        />
+      </div>
+
+      <!-- result -->
+      <div class="w-full">
+        <label for="result" class="block mb-2">Color Code</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md shadow focus:border-blue-600 outline-none"
+          type="text"
+          name="result"
+          id="result"
+          disabled
+        />
+      </div>
+    </div>
+
+    <Tools />
+  </main>
+</Layout>
+
+<script defer async>
+  const colorPicker = document.querySelector("#color");
+  const result = document.querySelector("#result");
+
+  colorPicker.addEventListener("input", updateColor);
+
+  function updateColor() {
+    const selectedColor = colorPicker.value;
+
+    const hexColorCode = rgbToHex(selectedColor);
+    result.value = hexColorCode;
+  }
+
+  function rgbToHex(rgbColor) {
+    const parts = rgbColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    if (!parts) return rgbColor;
+
+    const hex = (x) => {
+      return ("0" + parseInt(x).toString(16)).slice(-2);
+    };
+
+    return "#" + hex(parts[1]) + hex(parts[2]) + hex(parts[3]);
+  }
+</script>

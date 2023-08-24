@@ -1,0 +1,89 @@
+---
+export const prerender = true;
+import Layout from "../layouts/Layout.astro";
+import Tools from "../components/tools.astro";
+---
+
+<Layout title="Age Calculator | 10mblogs">
+  <main class="min-h-screen w-full">
+    <h1
+      class="my-5 mx-auto font-medium text-xl md:text-3xl text-center text-blue-700"
+    >
+      Age Calculator
+    </h1>
+
+    <div
+      class="container my-10 mb-5 w-[90%] md:w-2/3 mx-auto flex flex-col md:flex-row gap-3"
+    >
+      <!-- date input -->
+      <div class="w-full md:w-1/2">
+        <label for="date" class="block mb-2">Date</label>
+        <input
+          class="w-full border border-blue-400 p-3 rounded-md focus:border-blue-600 placeholder:text-blue-300 outline-none"
+          type="date"
+          name="date"
+          id="date"
+        />
+      </div>
+
+      <!-- date output-->
+      <div class="w-full md:w-1/2">
+        <label for="age" class="block mb-2">Age</label>
+        <input
+          class="w-full rounded-md bg-blue-50 p-3 font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 outline-none"
+          name="age"
+          type="text"
+          id="age"
+          placeholder="Your age is 0 years, 0 months, and 0 days."
+          disabled
+        />
+      </div>
+    </div>
+    <!-- button -->
+    <div class="button w-[90%] md:w-2/3 mx-auto">
+      <button
+        id="calculate"
+        class="px-5 py-2 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700 transition delay-75 hover:bg-blue-700 hover:text-blue-50"
+        >Calculate</button
+      >
+    </div>
+    <Tools />
+  </main>
+</Layout>
+
+<script async defer>
+  const dateInput = document.querySelector("#date");
+  const ageOutput = document.querySelector("#age");
+  const calculate = document.querySelector("#calculate");
+
+  calculate.addEventListener("click", calculateAge);
+
+  function calculateAge() {
+    const birthdate = new Date(dateInput.value);
+    const currentDate = new Date();
+
+    const yearDiff = currentDate.getFullYear() - birthdate.getFullYear();
+    const monthDiff = currentDate.getMonth() - birthdate.getMonth();
+    const dayDiff = currentDate.getDate() - birthdate.getDate();
+
+    let ageYears = yearDiff;
+    let ageMonths = monthDiff;
+    let ageDays = dayDiff;
+
+    if (dayDiff < 0) {
+      ageMonths -= 1;
+      ageDays += new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        0
+      ).getDate();
+    }
+
+    if (monthDiff < 0) {
+      ageYears -= 1;
+      ageMonths += 12;
+    }
+
+    ageOutput.value = `Your age is ${ageYears} years, ${ageMonths} months, and ${ageDays} days.`;
+  }
+</script>
