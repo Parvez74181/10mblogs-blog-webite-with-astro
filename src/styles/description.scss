@@ -1,6 +1,11 @@
 #desc-full {
   font-family: "Inter", sans-serif !important;
   scroll-behavior: smooth !important;
+  blockquote {
+    background-color: rgba(255, 0, 0, 0.07);
+    border-left: 4px solid rgba(255, 0, 0, 0.5);
+    padding-left: 15px;
+  }
   h1 {
     font-size: clamp(
       2.113rem,

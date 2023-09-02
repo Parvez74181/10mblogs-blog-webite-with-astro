@@ -36,7 +36,7 @@ try {
 >
   <main id="slug-main" class="slug-main min-h-screen bg-white">
     <section
-      class="flex justify-center items-start flex-wrap py-5 mx-5 md:mx-20 gap-5 md:gap-36"
+      class="flex justify-center items-center flex-wrap flex-col py-5 mx-5 md:mx-36 gap-5"
     >
       {/* left side main content  */}
       <div
@@ -101,11 +101,11 @@ try {
 
           {/* description */}
           <Description description={blog?.description} client:visible />
-
-          <!-- set:html={blog?.description} -->
         </div>
 
-        <div class="hidden">{blog?.postTags}</div>
+        <div class="w-0 h-0 opacity-0 select-none pointer-events-none">
+          {blog?.postTags}
+        </div>
         {/* scroll to top icon */}
         <a
           href={"#slug-main"}
@@ -125,7 +125,7 @@ try {
       {/* right side bar */}
 
       <div
-        class="sticky top-0 md:top-24 md:mt-20 min-h-full w-full lg:w-3/12 flex flex-col"
+        class="sticky top-0 md:top-24 md:mt-20 min-h-full w-full flex flex-col lg:w-7/12"
         style={{ gap: "50px" }}
       >
         {/* search input */}
@@ -221,7 +221,7 @@ try {
   }
 </style>
 
-<script defer>
+<script defer async>
   const searchInputBox = document.querySelector("#search-input");
   const searchIconBox = document.querySelector("#search-icon");
   const shareIcon = document.querySelector("#share-icon");
