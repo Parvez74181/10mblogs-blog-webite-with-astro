@@ -1,7 +1,7 @@
 #desc-full {
   font-family: "Inter", sans-serif !important;
   scroll-behavior: smooth !important;
-  text-align: justify;
+  // text-align: justify;
   blockquote {
     background-color: rgba(255, 0, 0, 0.07);
     border-left: 4px solid rgba(255, 0, 0, 0.5);
@@ -109,21 +109,5 @@
   }
   img {
     width: 100% !important;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .desc-full {
-    table {
-      width: 350px !important;
-    }
-  }
-}
-
-@media only screen and (max-width: 370px) {
-  .desc-full {
-    table {
-      width: 200px !important;
-    }
   }
 }
