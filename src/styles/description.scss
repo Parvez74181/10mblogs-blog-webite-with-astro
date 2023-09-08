@@ -61,6 +61,12 @@
     max-height: 450px;
     object-fit: contain;
   }
+  table,
+  tbody,
+  td,
+  tr {
+    font-family: "Inter", sans-serif !important;
+  }
   div,
   tbody {
     width: auto !important;
