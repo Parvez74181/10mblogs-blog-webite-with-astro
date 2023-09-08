@@ -8,7 +8,6 @@ import Layout from "../../layouts/Layout.astro";
 import Description from "../../components/Description.jsx";
 const { slug } = Astro.params;
 
-
 let blog: any;
 let categories: any;
 
@@ -225,15 +224,6 @@ try {
   const searchInputBox = document.querySelector("#search-input");
   const searchIconBox = document.querySelector("#search-icon");
   const shareIcon = document.querySelector("#share-icon");
-  const descFullTable = document.querySelectorAll("#desc-full table");
-
-  const windowWidth = window.innerWidth;
-
-  if (windowWidth < 600) {
-    descFullTable.forEach((table) => {
-      table.parentElement.style.overflowX = "auto";
-    });
-  }
 
   searchInputBox.addEventListener("keyup", (e) => {
     searchHandler(e);

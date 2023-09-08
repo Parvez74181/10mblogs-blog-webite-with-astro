@@ -117,7 +117,7 @@ paginationItems.push(
           >
             Showing results based on {`"${search}"`}
           </p>
-          <div class="flex justify-center items-center flex-wrap mt-10 gap-8 w-[90%]  mx-auto">
+          <div class="flex justify-center items-center flex-wrap mt-10 gap-4 md:gap-8 w-[90%]  mx-auto">
             {blogs?.map((blog) => (
               <Card postData={blog} />
             ))}

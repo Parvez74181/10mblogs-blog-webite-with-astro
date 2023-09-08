@@ -111,3 +111,11 @@
     width: 100% !important;
   }
 }
+
+@media only screen and (max-width: 746px) {
+  #desc-full {
+    div:has(table) {
+      overflow-x: auto;
+    }
+  }
+}
