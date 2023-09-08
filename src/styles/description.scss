@@ -64,8 +64,14 @@
   table,
   tbody,
   td,
-  tr {
+  tr,
+  font {
     font-family: "Inter", sans-serif !important;
+  }
+  td {
+    span {
+      font-family: "Inter", sans-serif !important;
+    }
   }
   div,
   tbody {
