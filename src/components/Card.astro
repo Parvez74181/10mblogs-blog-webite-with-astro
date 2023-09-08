@@ -19,7 +19,7 @@ let blogUploadDate: string = `${year}-${months}-${day}`;
 <div class="card w-[20rem] relative rounded-lg shadow-lg bg-white">
   {/* thumbnail image */}
   <div class="w-full relaive px-3 pt-3 md:p-3">
-    <a href={`/blog/${slug}/${UID}`} class="w-1/3">
+    <a href={`/blog/${slug}`} class="w-1/3">
       <Image
         class={`rounded-md ${
           thumbnail?.includes("drive.google.com") ||
@@ -57,14 +57,14 @@ let blogUploadDate: string = `${year}-${months}-${day}`;
     </div>
 
     {/* title */}
-    <a href={`/blog/${slug}/${UID}`}>
+    <a href={`/blog/${slug}`}>
       <h5 class="title font-bold text-gray-700 tracking-wider leading-7">
         {title}
       </h5>
     </a>
 
     <a
-      href={`/blog/${slug}/${UID}`}
+      href={`/blog/${slug}`}
       class="read-more-btn inline-flex items-center text-sm tracking-wide text-center rounded-md mt-2 transition-all delay-75 text-gray-600"
     >
       Read more &nbsp;
