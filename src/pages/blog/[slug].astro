@@ -24,6 +24,14 @@ try {
 } finally {
   await prisma.$disconnect();
 }
+
+const dateObject = new Date(blog?.createdAt);
+
+// Extract date, month, and upload time
+const day = dateObject.getDate();
+const month = dateObject.toLocaleString("default", { month: "short" });
+const year = dateObject.getFullYear();
+const time = dateObject.toLocaleTimeString("en-US");
 ---
 
 <Layout
@@ -55,10 +63,42 @@ try {
 
           {/* title */}
           <h1
-            class={`mb-6 text-2xl md:text-3xl font-bold tracking-wider text-gray-700`}
+            class=`text-2xl md:text-3xl font-bold tracking-wider text-gray-700`
           >
             {blog?.title}
           </h1>
+
+          {/* share options */}
+
+          <div
+            class="flex justify-between items-center p-2 bg-gray-100 border-l-4 border-blue-500 my-3"
+          >
+            <div class="date">
+              {`${day} ${month}, ${year} - ${time}`}
+            </div>
+            <div
+              class="share-box relative -right-4 flex justify-center items-center"
+            >
+              <Image
+                src={shareIcon}
+                alt="share-icon"
+                id="share-icon"
+                width={700}
+                height={700}
+                data-title={blog?.title}
+                data-desc={blog?.metaDescription}
+                class="w-[35px] p-2 bg-blue-100 rounded cursor-pointer"
+              />
+              <input
+                type="url"
+                id="url-input"
+                class="w-[1px] outline-none border-none text-transparent"
+                value={blog?.id && Astro.url.href}
+                readonly
+              />
+              <span class="px-2 text-blue-300 link-copy-txt"></span>
+            </div>
+          </div>
 
           {/* image */}
 
@@ -68,35 +108,12 @@ try {
                   blog?.thumbnail?.split("/")[5]
                 }`
               : blog?.thumbnail}
-            class="rounded-md object-contain max-h-[500px]"
+            class="rounded-md object-contain max-h-[500px] mb-3"
             width={800}
             height={500}
             format="webp"
             alt={blog?.slug}
           />
-
-          {/* share options */}
-
-          <div class="share-box">
-            <Image
-              src={shareIcon}
-              alt="share-icon"
-              id="share-icon"
-              width={700}
-              height={700}
-              data-title={blog?.title}
-              data-desc={blog?.metaDescription}
-              class="w-[35px] p-2 mt-5 bg-blue-100 rounded cursor-pointer"
-            />
-            <input
-              type="url"
-              id="url-input"
-              class="w-[1px] outline-none border-none text-transparent"
-              value={blog?.id && Astro.url.href}
-              readonly
-            />
-            <span class="px-2 text-blue-300 link-copy-txt"></span>
-          </div>
 
           {/* description */}
           <Description description={blog?.description} client:visible />
