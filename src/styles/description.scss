@@ -2,6 +2,9 @@
   font-family: "Inter", sans-serif !important;
   scroll-behavior: smooth !important;
   // text-align: justify;
+
+
+  
   blockquote {
     background-color: rgba(255, 0, 0, 0.07);
     border-left: 4px solid rgba(255, 0, 0, 0.5);
@@ -114,6 +117,10 @@
 
 @media only screen and (max-width: 746px) {
   #desc-full {
+    iframe{
+width:380px !important;
+      height:223px !important;
+    }
     div:has(table) {
       overflow-x: auto;
     }
