@@ -19,6 +19,7 @@
     "@prisma/client": "^4.16.2",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "@vercel/analytics": "^1.1.1",
     "appwrite": "^11.0.1",
     "astro": "^2.8.0",
     "astro-compress": "^2.0.14",
