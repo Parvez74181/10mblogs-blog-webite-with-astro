@@ -5,29 +5,6 @@ import { Image } from "@astrojs/image/components";
 import aboutBg from "../../public/about-bg-svg.svg";
 import searchIcon from "../../public/search-icon.svg";
 import categorySvg from "../../public/about-page-blog-category.svg";
-import { Client, Databases } from "appwrite";
-
-const client = new Client();
-
-const databases = new Databases(client);
-
-client
-  .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-  .setProject("64d128680686779f662d"); // Your project ID
-
-const promise = databases.listDocuments(
-  "64d12e033faaaa447337",
-  "64d12e12abe7dfad93ac"
-);
-
-promise.then(
-  function (response: any) {
-    console.log(response); // Success
-  },
-  function (error: any) {
-    console.log(error); // Failure
-  }
-);
 ---
 
 <Layout title="About | Discovering Our Rich Heritage | 10mBlogs">

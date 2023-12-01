@@ -22,7 +22,6 @@ const { title, description, image, tags, createdAt } = Astro.props;
     <meta name="theme-color" content="#ffffff" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="viewport" content="width=device-width" />
-<meta name="google-adsense-account" content="ca-pub-2666993835252422">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={url} />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -155,8 +154,8 @@ const { title, description, image, tags, createdAt } = Astro.props;
           item={{
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            headline: { title },
-            image: { image },
+            headline: title,
+            image: image,
             author: {
               "@type": "Person",
               name: "Parvez",
@@ -169,7 +168,7 @@ const { title, description, image, tags, createdAt } = Astro.props;
                 url: "https://res.cloudinary.com/drxcxwm7x/image/upload/v1688977462/logo_paqhak.png",
               },
             },
-            datePublished: { createdAt },
+            datePublished: `${createdAt}`,
           }}
         />
       )
